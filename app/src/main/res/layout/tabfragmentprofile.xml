@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_id_details3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        android:padding="5dp"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardElevation="2dp"
+
+
+        android:layout_weight="0.17">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_account_circle_black_24dp"
+                    android:id="@+id/imageView4"
+                    android:layout_weight="0.15" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chandrashekhar"
+
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:id="@+id/textView4"
+                    android:layout_weight="0.04" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:weightSum="1"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:text="Wallet"
+                        android:gravity="center"
+                        android:layout_weight="0.5"
+                        android:textStyle="bold"
+                        android:id="@+id/textView5" />
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:id="@+id/tv_wallet_number" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/colorCardHead"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_Edit_View"
+                        android:textColor="@color/white"
+                        android:background="@drawable/ripple_effect"
+                        android:text="Edit/View"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_profile2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_user_to_client"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:drawableRight="@drawable/ic_swap_calls_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Logout"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_2"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:drawableRight="@drawable/ic_favorite_border_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Wish List"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_3"
+                    android:layout_gravity="left"
+                    android:textColor="@color/white"
+                    android:padding="4dp"
+                    android:gravity="center"
+                    android:drawableRight="@drawable/ic_local_offer_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Offers"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_4"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:drawableRight="@drawable/ic_help_outline_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Help"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_5"
+                    android:padding="4dp"
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:drawableRight="@drawable/ic_cast_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Invite Friends"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorCardHead"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_6"
+                    android:textColor="@color/white"
+                    android:padding="4dp"
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:drawableRight="@drawable/ic_feedback_black_24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Feedback"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

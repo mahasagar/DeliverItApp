@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">DeliverIt</string>
+    <string name="action_settings">Settings</string>
+    <string name="content">Content</string>
+    <string name="str_premium"><u>Premium</u>.</string>
+    <string name="str_unisex"> <u>Unisex</u>.</string>
+    <string name="str_booking_mgs">When you book  a service, you\'ll see the saloon and direction here</string>
+    <string name="str_booking_mgs2">Rate and Review Saloon after your service to get X% cashback</string>
+    <string name="str_messages_mgs1">When you book a service, you can message the saloon about your late arrival</string>
+    <string name="app_name_client">SaloonApp</string>
+    <string name="str_saloon_msg_no_reservation">You have no reservation request or booking inquiries to respond to right now</string>
+    <string name="str_saloon_calenderMsg">Activate Listing to View Calendar</string>
+    <string name="str_saloon_listingMsg">List is Empty</string>
+    <string name="str_saloon_statsMsg">Will show the money earned in individual bookings</string>
+
+    <string name="username_empty">Username is Empty</string>
+    <string name="password_empty">Password is Empty</string>
+
+
+</resources>
