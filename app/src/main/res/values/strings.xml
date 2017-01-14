@@ -15,6 +15,9 @@
 
     <string name="username_empty">Username is Empty</string>
     <string name="password_empty">Password is Empty</string>
+    <string name="userDetails">User Details</string>
+    <string name="latitude_string">latitude</string>
+    <string name="longitude_string">longitude</string>
 
 
 </resources>
