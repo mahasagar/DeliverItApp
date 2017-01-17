@@ -18,6 +18,7 @@
     <string name="userDetails">User Details</string>
     <string name="latitude_string">latitude</string>
     <string name="longitude_string">longitude</string>
+    <string name="strMrp">MRP.</string>
 
 
 </resources>

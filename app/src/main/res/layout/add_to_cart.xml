@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:hint="1"
+            android:text="1"
+            android:textSize="20dp"
+            android:textStyle="bold" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:contentPadding="16dp"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardElevation="2dp"
+        android:layout_marginTop="5dp"
+        card_view:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:padding="2dp" >
+
+            <ImageView
+                android:id="@+id/addQuantityItemImage"
+                android:layout_width="75dp"
+                android:layout_weight="0.2"
+                android:layout_height="match_parent"
+                android:src="@drawable/h1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginLeft="2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/addQuantityItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Product Name"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/addQuantityItemPackType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="75gm"
+                        android:layout_gravity="left"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_weight="0.5"/>
+                    <TextView
+                        android:id="@+id/addQuantityItemMRP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MRP.00"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:contentPadding="16dp"
+        card_view:cardElevation="2dp"
+        android:layout_marginTop="5dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardBackgroundColor="@color/cyan_300">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/addQuantityDistributorname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addQuantityDistributorprice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="TextView" />
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_addToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add To Cart"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+</LinearLayout>

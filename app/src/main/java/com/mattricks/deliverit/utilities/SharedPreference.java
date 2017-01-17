@@ -2,13 +2,17 @@ package com.mattricks.deliverit.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 
 import com.google.gson.Gson;
 import com.mattricks.deliverit.common.Constants;
+import com.mattricks.deliverit.model.Distributor;
 import com.mattricks.deliverit.model.Product;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,6 +52,35 @@ public class SharedPreference {
         }
         return null;
     }
+
+    public String getUserId(Context context) throws JSONException {
+        String User = loadUser(context);
+        JSONObject JsonResult = new JSONObject(User);
+        Log.d("JsonResult : ",JsonResult.getString("email"));
+        //JSONArray JsonDistributorArray = new JSONArray(object.getString("distributors"));
+          //  JSONObject JsonDistributorObject = JsonDistributorArray.getJSONObject(j);
+            if (JsonResult != null && JsonResult.toString() != "") {
+            return JsonResult.getString("_id");
+        }
+        return null;
+    }
+
+    public String getUserName(Context context) throws JSONException {
+        String User = loadUser(context);
+        JSONObject JsonResult = new JSONObject(User);
+        Log.d("JsonResult : ",JsonResult.getString("email"));
+        //JSONArray JsonDistributorArray = new JSONArray(object.getString("distributors"));
+        //  JSONObject JsonDistributorObject = JsonDistributorArray.getJSONObject(j);
+        if (JsonResult != null && JsonResult.toString() != "") {
+            return JsonResult.getString("name");
+        }
+        return null;
+    }
+
+
+
+
+
 
     public boolean isLogin(Context context) {
         SharedPreferences settings;

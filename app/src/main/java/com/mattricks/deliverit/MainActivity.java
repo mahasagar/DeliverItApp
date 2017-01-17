@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomBar.setFragmentItems(getSupportFragmentManager(), R.id.fragmentContainer,
                 new BottomBarFragment(TabFragmentProducts.newInstance("Products",bottomBar), R.drawable.ic_search_black_24dp, "Products"),
-                new BottomBarFragment(TabFragmentOrders.newInstance("Orders",bottomBar), R.drawable.ic_book_black_24dp, "Orders"),
                 new BottomBarFragment(TabFragmentCart.newInstance("Cart",bottomBar), R.drawable.ic_inbox_black_24dp, "Cart"),
+                new BottomBarFragment(TabFragmentOrders.newInstance("Orders",bottomBar), R.drawable.ic_book_black_24dp, "Orders"),
                 new BottomBarFragment(TabFragmentProfile.newInstance( "Profile",bottomBar), R.drawable.ic_account_circle_black_24dp, "Profile")
         );
         bottomBar.mapColorForTab(0, "#3B494C");
