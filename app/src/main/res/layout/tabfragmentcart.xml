@@ -4,20 +4,9 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Messages"
-        android:textStyle="bold"
-        android:id="@+id/tv_messages" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/str_messages_mgs1"
-        android:id="@+id/tvMessages_mgs1" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_cart"
+        android:background="@color/grey_100"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

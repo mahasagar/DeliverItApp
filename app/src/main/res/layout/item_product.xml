@@ -8,68 +8,70 @@
     android:padding="3dp"
     android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:contentPadding="16dp"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardElevation="2dp"
+        card_view:cardCornerRadius="5dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:contentPadding="16dp"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            card_view:cardElevation="2dp"
-            card_view:cardCornerRadius="5dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <ImageView
+                android:id="@+id/itemImage"
+                android:layout_width="75dp"
+                android:layout_weight="0.2"
+                android:layout_height="match_parent"
+                android:src="@drawable/h1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:padding="2dp" >
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginLeft="2dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/itemImage"
-                    android:layout_width="75dp"
-                    android:layout_weight="0.2"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/h1" />
+                <TextView
+                    android:id="@+id/itemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Product Name"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:layout_marginLeft="2dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/itemName"
+                        android:id="@+id/itemPackType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="75gm"
                         android:layout_gravity="left"
-                        android:text="Product Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="1"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/itemPackType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="75gm"
-                            android:layout_gravity="left"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:layout_weight="0.5"/>
-                        <TextView
-                            android:id="@+id/txtViewMRP"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="MRP.00"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textStyle="bold"
-                            android:layout_weight="0.5"/>
-                    </LinearLayout>
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        android:id="@+id/txtViewMRP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MRP.00"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5" />
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
