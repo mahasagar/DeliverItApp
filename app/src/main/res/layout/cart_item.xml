@@ -64,7 +64,7 @@
                 android:orientation="horizontal" >
 
                 <Button
-                    android:id="@+id/btn_sub"
+                    android:id="@+id/btnPlaceOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -72,7 +72,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
                 <Button
-                    android:id="@+id/btn_add"
+                    android:id="@+id/btnShareOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -7,8 +7,17 @@ import java.util.ArrayList;
  */
 public class Cart {
     public String DistributorName;
+    public String DistributorId;
     public String TotalPrice;
     public ArrayList<CartProduct> Items;
+
+    public String getDistributorId() {
+        return DistributorId;
+    }
+
+    public void setDistributorId(String distributorId) {
+        DistributorId = distributorId;
+    }
 
     public String getDistributorName() {
         return DistributorName;

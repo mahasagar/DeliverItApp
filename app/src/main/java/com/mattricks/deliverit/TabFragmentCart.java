@@ -49,12 +49,13 @@ public class TabFragmentCart extends Fragment {
     BottomBar bottomBar;
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
-    String UserId="";
     @Bind(R.id.recycler_view_cart)
     RecyclerView recyclerViewCart;
     RecyclerView.LayoutManager mLayoutManager;
     private CartAdapter mAdapter;
     private List<Cart> cartList = new ArrayList<>();
+    String UserName = null,UserId = null;
+
     public TabFragmentCart(){
 
         sharedPreference = new SharedPreference();
@@ -79,15 +80,19 @@ public class TabFragmentCart extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerViewCart.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CartAdapter(cartList,getActivity());
         recyclerViewCart.setAdapter(mAdapter);
         try {
-            Log.d("UserId b #: ", UserId);
             UserId = sharedPreference.getUserId(getActivity());
-            Log.d("# UserId #: ", UserId);
-        } catch (JSONException e) {
+            UserName = sharedPreference.getUserName(getActivity());
+
+            Log.d("UserId b #: ", UserId);
+            Log.d("UserName b #: ", UserName);
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.e("$$$$$$$$ b #: ", e.toString());
         }
+
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
         getCartDetails(rootView);
         return rootView;
     }
@@ -96,7 +101,7 @@ public class TabFragmentCart extends Fragment {
 
     private void getCartDetails(final View view) {
 
-        mAdapter = new CartAdapter(cartList,getActivity());
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
         final String URL = Constants.APP_URL + Constants.URL_GETCARTDETAILS;
         Log.d("URL #: ", URL);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -116,6 +121,7 @@ public class TabFragmentCart extends Fragment {
                                 Cart cart = new Cart();
                                 cart.DistributorName = object.getString("distributorName");
                                 cart.TotalPrice = object.getString("total");
+                                cart.DistributorId = object.getString("distributorId");
                                 // object.getString("items");
                                 JSONArray json_items_products = new JSONArray(object.getString("items"));
                                 ArrayList<CartProduct> cartProductList = new ArrayList<>();
@@ -147,7 +153,7 @@ public class TabFragmentCart extends Fragment {
                         }
                         try {
                             Log.d("productList after #: ", "" + cartList.size());
-                            mAdapter = new CartAdapter(cartList,getActivity());
+                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
                             recyclerViewCart.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

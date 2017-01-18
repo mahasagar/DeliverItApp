@@ -1,5 +1,6 @@
 package com.mattricks.deliverit.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import java.util.Map;
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.MyViewHolder> {
 
     private List<CartProduct> cartProductList;
+    Activity thisActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView itemName,itemQuantity,itemPrice,itemTotal;
@@ -47,10 +49,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     }
 
 
-    public CartProductAdapter(List<CartProduct> cartProductList) {
+    public CartProductAdapter(List<CartProduct> cartProductList, Activity thisActivity) {
 
         Log.d("construtor #: ",""+ cartProductList.size());
         this.cartProductList = cartProductList;
+        this.thisActivity=thisActivity;
     }
     View v ;
     @Override
@@ -66,9 +69,12 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         final CartProduct cartProduct = cartProductList.get(position);
         Log.d("here #: ",""+ cartProductList.size());
         holder.itemName.setText(cartProduct.getName());
-        holder.itemQuantity.setText(cartProduct.getQuantity());
-        holder.itemPrice.setText("* "+cartProduct.getDistributorPrice());
-        holder.itemTotal.setText("= "+cartProduct.getTotalPricePerProduct());
+        String qty=thisActivity.getResources().getString(R.string.strQuantity)+cartProduct.getQuantity();
+        holder.itemQuantity.setText(qty);
+        String price = thisActivity.getResources().getString(R.string.strPrice)+cartProduct.getDistributorPrice();
+        holder.itemPrice.setText(price);
+        String total = thisActivity.getResources().getString(R.string.strProductTotal)+cartProduct.getTotalPricePerProduct();
+        holder.itemTotal.setText(total);
     }
 
     @Override

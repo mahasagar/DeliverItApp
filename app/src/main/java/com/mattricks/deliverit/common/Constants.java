@@ -14,6 +14,7 @@ public class Constants {
     public static final String URL_ADDTOCART = "/api/addToCartAPI";
 
     public static final String URL_GETCARTDETAILS = "/api/getCartDetails";
+    public static final String URL_PLACEORDER = "/api/placeOrder";
 
     public static final String PREFS_NAME = "#deliverItApp";
     public static final String USER_PREF = "#deliverItAppUser";
