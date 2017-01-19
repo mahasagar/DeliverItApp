@@ -1,6 +1,5 @@
 package com.mattricks.deliverit;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +22,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.roughike.bottombar.BottomBar;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by mahasagar on 12/11/16.
@@ -46,17 +41,14 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
     private double fusedLatitude = 0.0;
     private  double fusedLongitude = 0.0;
-
-    @Bind(R.id.btn_startExplore)
-    Button btn_user_to_client;
     public TabFragmentProfile(){
 
         sharedPreference = new SharedPreference();
+
     }
 
     public static TabFragmentProfile newInstance(String text, BottomBar bottomBar) {
         Bundle args = new Bundle();
-        args.putString(STARTING_TEXT, text);
 
         TabFragmentProfile sampleFragment = new TabFragmentProfile();
         sampleFragment.bottomBar = bottomBar;
@@ -74,22 +66,6 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
             registerRequestUpdate(this);
         }
 
-        btn_user_to_client = (Button)rootView.findViewById(R.id.btn_user_to_client);
-        btn_user_to_client.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String User = sharedPreference.getUser(v.getContext());
-                    sharedPreference.removeUser(v.getContext());
-                    Intent i = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(i);
-                    getActivity().finish();
-                }catch(NullPointerException e){
-
-                }
-
-            }
-        });
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
 

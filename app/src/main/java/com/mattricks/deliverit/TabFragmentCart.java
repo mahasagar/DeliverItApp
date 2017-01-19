@@ -92,16 +92,16 @@ public class TabFragmentCart extends Fragment {
             Log.e("$$$$$$$$ b #: ", e.toString());
         }
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
         getCartDetails(rootView);
         return rootView;
     }
 
 
 
-    private void getCartDetails(final View view) {
+    public void getCartDetails(final View view) {
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
         final String URL = Constants.APP_URL + Constants.URL_GETCARTDETAILS;
         Log.d("URL #: ", URL);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -153,7 +153,7 @@ public class TabFragmentCart extends Fragment {
                         }
                         try {
                             Log.d("productList after #: ", "" + cartList.size());
-                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName);
+                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
                             recyclerViewCart.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

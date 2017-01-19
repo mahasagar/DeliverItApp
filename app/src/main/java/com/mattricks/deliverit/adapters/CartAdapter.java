@@ -1,6 +1,7 @@
 package com.mattricks.deliverit.adapters;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mattricks.deliverit.R;
+import com.mattricks.deliverit.TabFragmentCart;
 import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Cart;
 import com.mattricks.deliverit.model.CartProduct;
@@ -47,6 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     RequestQueue requestQueue;
     RecyclerView.LayoutManager mLayoutManager;
     SharedPreference sharedPreference;
+    TabFragmentCart update;
     String UserId = "",UserName="";
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView distributorName,totalPrice;
@@ -67,13 +70,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
 
-    public CartAdapter(List<Cart> cartList,Activity activity,String UserId,String UserName) {
+    public CartAdapter(List<Cart> cartList, Activity activity, String UserId, String UserName, TabFragmentCart one) {
 
         Log.d("construtor #: ",""+ cartList.size());
         this.cartList = cartList;
         this.thisActivity = activity;
         this.UserId = UserId;
         this.UserName = UserName;
+        this.update = one;
     }
     View v ;
     @Override
@@ -127,7 +131,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         try {
                             JSONObject JsonResult = new JSONObject(response);
                             if(JsonResult.getBoolean("result")){
-                                //thisActivity.getFragmentManager().
+                                update.getCartDetails(update.getView());
                             }
 
                         } catch (Exception e) {
