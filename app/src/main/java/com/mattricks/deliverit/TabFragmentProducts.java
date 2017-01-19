@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -64,7 +65,6 @@ public class TabFragmentProducts extends Fragment {
     EditText itemQuantity;
     String User;
     private List<Product> productList = new ArrayList<>();
-
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     RecyclerView recyclerViewDistributor;
@@ -274,7 +274,36 @@ public class TabFragmentProducts extends Fragment {
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
 
+        AdView mAdView;
 
+        mAdView = (AdView) dialog.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+            }
+            @Override
+            public void onAdClosed() {
+                Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdLeftApplication() {
+                Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
+
+        mAdView.loadAd(adRequest);
 
 
         Button btn_addToCart = (Button)dialog.findViewById(R.id.btn_addToCart);

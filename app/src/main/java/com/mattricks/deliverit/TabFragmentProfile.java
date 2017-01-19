@@ -11,9 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,6 +27,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.roughike.bottombar.BottomBar;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mahasagar on 12/11/16.
@@ -33,6 +41,8 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     private ViewPager mViewPager;
     BottomBar bottomBar ;
     SharedPreference sharedPreference;
+    private AdView mAdView;
+
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -42,9 +52,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     private double fusedLatitude = 0.0;
     private  double fusedLongitude = 0.0;
     public TabFragmentProfile(){
-
         sharedPreference = new SharedPreference();
-
     }
 
     public static TabFragmentProfile newInstance(String text, BottomBar bottomBar) {
@@ -60,7 +68,36 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.tabfragmentprofile, container, false);
         initializeViews(rootView);
+        mAdView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                // Check the LogCat to get your test device ID
+                .addTestDevice("C04B1BFFB0774708339BC273F8A43708")
+                .build();
 
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+            }
+            @Override
+            public void onAdClosed() {
+                Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdLeftApplication() {
+                Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
+
+        mAdView.loadAd(adRequest);
         if (checkPlayServices()) {
             startFusedLocation();
             registerRequestUpdate(this);
@@ -76,15 +113,26 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-
-            // MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
         }
 
         return rootView;
     }
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
 
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -231,6 +279,9 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
         if (checkPlayServices()) {
             startFusedLocation();
             registerRequestUpdate(this);
+        }
+        if (mAdView != null) {
+            mAdView.resume();
         }
     }
 }
