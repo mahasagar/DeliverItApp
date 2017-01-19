@@ -55,17 +55,13 @@ public class TabFragmentCart extends Fragment {
     private CartAdapter mAdapter;
     private List<Cart> cartList = new ArrayList<>();
     String UserName = null,UserId = null;
-
+    private String UserMobile;
     public TabFragmentCart(){
-
         sharedPreference = new SharedPreference();
     }
-
     public static TabFragmentCart newInstance(String text, BottomBar bottomBar) {
-
         TabFragmentCart sampleFragment = new TabFragmentCart();
         sampleFragment.bottomBar = bottomBar;
-        //sampleFragment.setArguments(args);
         return sampleFragment;
     }
 
@@ -85,6 +81,8 @@ public class TabFragmentCart extends Fragment {
             UserId = sharedPreference.getUserId(getActivity());
             UserName = sharedPreference.getUserName(getActivity());
 
+            UserMobile = sharedPreference.getUrderMobileNumber(getActivity());
+
             Log.d("UserId b #: ", UserId);
             Log.d("UserName b #: ", UserName);
         } catch (Exception e) {
@@ -92,7 +90,7 @@ public class TabFragmentCart extends Fragment {
             Log.e("$$$$$$$$ b #: ", e.toString());
         }
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
         getCartDetails(rootView);
         return rootView;
     }
@@ -101,7 +99,7 @@ public class TabFragmentCart extends Fragment {
 
     public void getCartDetails(final View view) {
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
+        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
         final String URL = Constants.APP_URL + Constants.URL_GETCARTDETAILS;
         Log.d("URL #: ", URL);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -153,7 +151,7 @@ public class TabFragmentCart extends Fragment {
                         }
                         try {
                             Log.d("productList after #: ", "" + cartList.size());
-                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,TabFragmentCart.this);
+                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
                             recyclerViewCart.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

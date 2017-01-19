@@ -2,6 +2,7 @@ package com.mattricks.deliverit.adapters;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     RecyclerView.LayoutManager mLayoutManager;
     SharedPreference sharedPreference;
     TabFragmentCart update;
-    String UserId = "",UserName="";
+    String UserId = "",UserName="",UserMobile="";
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView distributorName,totalPrice;
         public RecyclerView recyclerview_cart_items;
@@ -70,7 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
 
-    public CartAdapter(List<Cart> cartList, Activity activity, String UserId, String UserName, TabFragmentCart one) {
+    public CartAdapter(List<Cart> cartList, Activity activity, String UserId, String UserName,String UserMobile,TabFragmentCart one) {
 
         Log.d("construtor #: ",""+ cartList.size());
         this.cartList = cartList;
@@ -78,6 +79,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         this.UserId = UserId;
         this.UserName = UserName;
         this.update = one;
+        this.UserMobile=UserMobile;
     }
     View v ;
     @Override
@@ -111,6 +113,42 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.btnShareOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                cart
+                 shareOrder(UserId,UserName,cart);
+            }
+        });
+
+
+    }
+
+    private void shareOrder(String userId, String userName, Cart cart) {
+        String shareOrder = "\n New Order by "+userName +"\n";
+        shareOrder = shareOrder + "Mobile Number : "+UserMobile+"\n";
+        int total = 0;
+        String itemsToShare="\n";
+        ArrayList<CartProduct> items = cart.getItems();
+        for(int i = 0; i <items.size();i++){
+            itemsToShare = itemsToShare + (i+1) +"."+items.get(i).getName()+"\n";
+            itemsToShare = itemsToShare + "Qty." +items.get(i).getQuantity();
+            itemsToShare = itemsToShare + "* Rs." +items.get(i).getDistributorPrice();
+            int totalPerItem = ( Integer.valueOf(items.get(i).getQuantity()) * Integer.valueOf(items.get(i).getDistributorPrice()));
+            itemsToShare = itemsToShare + "= Rs. " + totalPerItem +"\n\n";
+            total = total+ totalPerItem;
+        }
+        itemsToShare = itemsToShare + "Total : Rs." + total;
+        shareOrder = shareOrder + itemsToShare;
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                shareOrder);
+        sendIntent.setType("text/plain");
+        thisActivity.startActivity(sendIntent);
+        Toast.makeText(thisActivity,"Order Shared to " + cart.getDistributorName()  ,
+                Toast.LENGTH_LONG).show();
     }
 
     @Override

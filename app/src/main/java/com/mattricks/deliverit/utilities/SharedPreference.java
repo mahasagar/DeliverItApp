@@ -76,6 +76,16 @@ public class SharedPreference {
         }
         return null;
     }
+    public String getUrderMobileNumber(Context context) throws JSONException {
+        String User = loadUser(context);
+        JSONObject JsonResult = new JSONObject(User);
+        JSONObject JsonResultContact = JsonResult.getJSONObject("contactNumbers");
+        Log.d("JsonResult : ",JsonResultContact.getString("mobile"));
+        if (JsonResult != null && JsonResult.toString() != "" && JsonResultContact != null) {
+            return JsonResultContact.getString("mobile");
+        }
+        return null;
+    }
 
 
 

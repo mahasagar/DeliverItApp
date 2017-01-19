@@ -111,29 +111,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.itemPackType.setText(product.getPackType());
         holder.itemMRP.setText("MRP. "+product.getMRP());
         Picasso.with(v.getContext()).load(product.getProductImgUrl()).into(holder.itemImage);
-        /*holder.btnAddToCart.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                String quantity =  holder.itemQuantity.getText().toString();
-
-                Toast.makeText(v.getContext(),quantity,Toast.LENGTH_SHORT).show();
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("businessId","UserId");
-                params.put("businessName","USername");
-                params.put("productId",product.get_id());
-                params.put("name",product.getName());
-                params.put("packType",product.getName());
-                params.put("quantity",quantity);
-                params.put("unitPrice",product.getName());
-                params.put("MRP",product.getName());
-                params.put("supplierId",product.getName());
-                params.put("supplierName",product.getName());
-               // addToCart(params);
-            }
-        });*/
 
     }
 
@@ -142,50 +120,4 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         return productList.size();
     }
 
-
-    private void addToCart( final String username, final String password, final View view) {
-
-        requestQueue = VolleySingleton.getInstance().getREquestQueue();
-        final String URL = Constants.APP_URL + Constants.API_LOGIN;
-
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {@Override
-                public void onResponse(String response) {
-                    Log.d("Response #: ", response);
-                    try {
-                        JSONObject JsonResult = new JSONObject(response.toString());
-
-                        boolean status = JsonResult.getBoolean("status");
-                        if(status) {
-                            JSONObject JsonResultData = JsonResult.getJSONObject("result");
-                            //Toast.makeText(view.getContext(), "JsonResultData : " + JsonResultData.toString(), Toast.LENGTH_LONG).show();
-
-                        }else{
-                            String result = JsonResult.getString("result");
-                            Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }catch(Exception e){
-                        Log.d("e #: ", e.getMessage());
-                    }
-                }
-                },
-                new Response.ErrorListener()
-                {@Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error.Response #", error.getMessage());
-                }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",username.trim());
-                params.put("password",password.trim());
-                return params;
-            }
-        };
-        requestQueue.add(postRequest);
-    }
 }
