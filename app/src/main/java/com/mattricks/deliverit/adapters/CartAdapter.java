@@ -1,7 +1,9 @@
 package com.mattricks.deliverit.adapters;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ import com.mattricks.deliverit.TabFragmentCart;
 import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Cart;
 import com.mattricks.deliverit.model.CartProduct;
+import com.mattricks.deliverit.utilities.DataProvider;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
 
@@ -43,6 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     RecyclerView.LayoutManager mLayoutManager;
     TabFragmentCart update;
     String UserId = "", UserName = "", UserMobile = "";
+    ArrayList<CartProduct> cartProductList = new ArrayList<>();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView distributorName, totalPrice;
@@ -88,7 +93,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         final Cart cart = cartList.get(position);
         holder.distributorName.setText(cart.getDistributorName());
         holder.totalPrice.setText(cart.getTotalPrice());
-        ArrayList<CartProduct> cartProductList = new ArrayList<>();
         cartProductList = cart.getItems();
         CartProductAdapter mCartProdAdapter = new CartProductAdapter(cartProductList, thisActivity);
         mLayoutManager = new LinearLayoutManager(thisActivity);
@@ -99,7 +103,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                placeOrder(UserId, cart.getDistributorId(),"PlaceOrder");
+
+                placeOrder(UserId, cart.getDistributorId(),"PlaceOrder",cart.getDistributorName(),cartProductList);
                 // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -109,7 +114,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             public void onClick(View view) {
 //                cart
                 shareOrder(UserId, UserName, cart);
-                placeOrder(UserId, cart.getDistributorId(),"ShareOrder");
+                placeOrder(UserId, cart.getDistributorId(),"ShareOrder",cart.getDistributorName(),cartProductList);
             }
         });
 
@@ -148,7 +153,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return cartList.size();
     }
 
-    private void placeOrder(final String UserId, final String DistributorId, final String OrderType) {
+    private void placeOrder(final String UserId, final String DistributorId, final String OrderType, final String distributorName,
+                            final ArrayList<CartProduct> cartItems) {
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
         final String URL = Constants.APP_URL + Constants.URL_PLACEORDER;
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -160,6 +166,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                             if (JsonResult.getBoolean("result")) {
                                 update.getCartDetails(update.getView());
                             }
+                            addToFav(cartItems);
+                            Toast.makeText(thisActivity, "Order Placed to " + distributorName,
+                                    Toast.LENGTH_LONG).show();
 
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
@@ -185,6 +194,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         };
         requestQueue.add(postRequest);
+    }
+
+    private void addToFav(ArrayList<CartProduct> cartItems) {
+        for(int i =0 ; i< cartItems.size(); i++) {
+            CartProduct cartProduct = cartItems.get(i);
+            ContentValues values = new ContentValues();
+            values.put(DataProvider.name, cartProduct.getName());
+            //getContentResolver().insert(DataProvider.CONTENT_URI, values);
+        }
     }
 
 

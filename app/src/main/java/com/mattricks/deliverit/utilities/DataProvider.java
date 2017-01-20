@@ -19,14 +19,14 @@ import java.util.HashMap;
  * Created by mahasagar on 11/1/17.
  */
 public class DataProvider extends ContentProvider {
-    static final String PROVIDER_NAME = "com.mattricks.deliverit.MyProvider";
-    static final String URL = "content://" + PROVIDER_NAME + "/cte";
-    static final Uri CONTENT_URI = Uri.parse(URL);
+    public static final String PROVIDER_NAME = "com.mattricks.deliverit.MyProvider";
+    public static final String URL = "content://" + PROVIDER_NAME + "/cte";
+    public static final Uri CONTENT_URI = Uri.parse(URL);
 
-    static final String id = "id";
-    static final String name = "name";
-    static final int uriCode = 1;
-    static final UriMatcher uriMatcher;
+    public static final String id = "id";
+    public static final String name = "name";
+    public static final int uriCode = 1;
+    public static final UriMatcher uriMatcher;
     private static HashMap<String, String> values;
 
     static {
