@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin">
-
+    android:padding="@dimen/widget_margin"
+    android:background="#55000000">
     <FrameLayout
         android:id="@+id/widget"
         android:layout_width="match_parent"
@@ -23,12 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:id="@+id/widget_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:dividerHeight="0dp"/>
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/widget_layout_item"/>
     </FrameLayout>
 
 </LinearLayout>

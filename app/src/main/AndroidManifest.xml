@@ -43,7 +43,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <receiver
-            android:name=".widget.AndroidWidget"
+            android:name="com.mattricks.deliverit.widget.AndroidWidget"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

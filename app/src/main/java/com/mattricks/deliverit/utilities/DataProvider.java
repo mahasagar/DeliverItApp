@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -19,12 +20,15 @@ import java.util.HashMap;
  * Created by mahasagar on 11/1/17.
  */
 public class DataProvider extends ContentProvider {
-    public static final String PROVIDER_NAME = "com.mattricks.deliverit.MyProvider";
+    public static final String PROVIDER_NAME = "com.mattricks.deliverit.utilities.DataProvider";
     public static final String URL = "content://" + PROVIDER_NAME + "/cte";
     public static final Uri CONTENT_URI = Uri.parse(URL);
 
     public static final String id = "id";
+    public static final String productId = "productId";
     public static final String name = "name";
+    public static final String distributorName = "distributorName";
+    public static final String distributorPrice = "distributorPrice";
     public static final int uriCode = 1;
     public static final UriMatcher uriMatcher;
     private static HashMap<String, String> values;
@@ -87,6 +91,7 @@ public class DataProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         long rowID = db.insert(TABLE_NAME, "", values);
+        Log.d("DB",values.toString());
         if (rowID > 0) {
             Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
             getContext().getContentResolver().notifyChange(_uri, null);
@@ -124,12 +129,15 @@ public class DataProvider extends ContentProvider {
     }
 
     private SQLiteDatabase db;
-    static final String DATABASE_NAME = "deliverIt";
-    static final String TABLE_NAME = "products";
+    static final String DATABASE_NAME = "DeliverIt";
+    static final String TABLE_NAME = "product";
     static final int DATABASE_VERSION = 1;
     static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
             + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + " name TEXT NOT NULL);";
+            + " name TEXT NOT NULL," +
+             productId + " TEXT NOT NULL," +
+            distributorName + " TEXT NOT NULL," +
+            distributorPrice + " TEXT NOT NULL" + ");";
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {

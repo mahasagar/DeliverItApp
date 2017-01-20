@@ -1,7 +1,13 @@
 package com.mattricks.deliverit.utilities;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 
 import com.mattricks.deliverit.model.Product;
 
@@ -11,11 +17,13 @@ import java.util.List;
 /**
  * Created by mahasagar on 10/1/17.
  */
-public class SampleLoader extends AsyncTaskLoader<List<Product>> {
+public class SampleLoader extends AsyncTaskLoader<List<Product>> implements LoaderManager.LoaderCallbacks<Cursor> {
     private List<Product> mData;
-
+    Context cont;
+    CursorLoader cursorLoader;
     public SampleLoader(Context ctx) {
         super(ctx);
+        this.cont =ctx;
     }
 
     @Override
@@ -57,4 +65,30 @@ public class SampleLoader extends AsyncTaskLoader<List<Product>> {
     }
 
     private SampleLoader mObserver;
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        cursorLoader= new CursorLoader(cont, Uri.parse(DataProvider.CONTENT_URI.toString()), null, null, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        cursor.moveToFirst();
+        StringBuilder res=new StringBuilder();
+        while (!cursor.isAfterLast()) {
+            res.append("\n"+cursor.getString(cursor.getColumnIndex("id"))+ "-"+ cursor.getString(cursor.getColumnIndex("name")));
+            cursor.moveToNext();
+        }
+    }
+
+
+
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+
+    }
+
 }

@@ -19,11 +19,20 @@
 
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>
     </style>
+    <style name="StockSymbolTextStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="PercentChangeTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="android:windowBackground">@color/grey_100</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/splash_theme</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:padding="@dimen/widget_margin">
+
+
+    <TextView
+        android:id="@+id/tvProductName"
+        style="@style/StockSymbolTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:gravity="left|center_vertical"
+        tools:text="@string/strProductName"
+        />
+
+    <TextView
+        android:id="@+id/tvProductPrice"
+        style="@style/PercentChangeTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="3dp"
+        android:background="@drawable/percent_change_pill"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp"
+        tools:text="@string/strProductPrice"
+        />
+
+</FrameLayout>

@@ -51,6 +51,7 @@
     <string name="strLocation">Location</string>
     <string name="strLocationLat">Lat</string>
     <string name="strLocationLong">Long</string>
+    <string name="strProductPrice">Product Price</string>
 
 
 </resources>
