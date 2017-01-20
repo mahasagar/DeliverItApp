@@ -41,12 +41,10 @@ public class DataProvider extends ContentProvider {
         Context context = getContext();
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
-        if (db != null) {
-            return true;
-        }
-        return false;
+        return db != null;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
@@ -64,9 +62,11 @@ public class DataProvider extends ContentProvider {
         if (sortOrder == null || sortOrder == "") {
             sortOrder = name;
         }
-        Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-                null, sortOrder);
-        c.setNotificationUri(getContext().getContentResolver(), uri);
+
+            Cursor c = qb.query(db, projection, selection, selectionArgs, null,
+                    null, sortOrder);
+
+            c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
 
@@ -82,6 +82,7 @@ public class DataProvider extends ContentProvider {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues values) {

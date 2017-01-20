@@ -3,9 +3,6 @@ package com.mattricks.deliverit.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by mahasagar on 18/1/17.
- */
 public class CartProduct implements Parcelable {
 
     public String productId, brand, form, marketingCompanyName, name, productImgUrl, packSize, packType;

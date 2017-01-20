@@ -28,7 +28,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="Distriuto Name"
+                        android:text="@string/strDistributorName"
                         android:textColor="@color/white"
                         android:padding="2dp"
                         android:textStyle="bold"
@@ -39,7 +39,7 @@
                         android:id="@+id/itemOrderStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NEW"
+                        android:text="@string/strOrderStatus"
                         android:layout_weight="0.5"
                         android:padding="2dp"
                         android:textColor="@color/white"
@@ -48,10 +48,10 @@
                 <TextView
                     android:id="@+id/itemOrderId"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:padding="2dp"
-                    android:text="Order Id"
+                    android:text="@string/strOrderId"
                     android:textStyle="bold" />
 
 
@@ -66,14 +66,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Total"
-                        android:layout_gravity="left"
+                        android:text="@string/strOrderTotal"
+                        android:layout_gravity="start"
                         android:layout_weight="0.5" />
 
                     <TextView
                         android:id="@+id/itemOrderDate"
                         android:layout_width="wrap_content"
-                        android:text="12/12/1212"
+                        android:text="@string/strOrderDate"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5" />
                 </LinearLayout>

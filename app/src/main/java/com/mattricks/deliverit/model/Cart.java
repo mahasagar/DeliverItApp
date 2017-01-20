@@ -2,9 +2,6 @@ package com.mattricks.deliverit.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by mahasagar on 17/1/17.
- */
 public class Cart {
     public String DistributorName;
     public String DistributorId;

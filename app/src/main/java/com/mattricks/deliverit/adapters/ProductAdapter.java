@@ -1,40 +1,23 @@
 package com.mattricks.deliverit.adapters;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.mattricks.deliverit.MainActivity;
 import com.mattricks.deliverit.R;
-import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Product;
-import com.mattricks.deliverit.utilities.VolleySingleton;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created by sagar on 31/1/16.
- */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
     private List<Product> productList;
+    String strMrp;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView itemName, itemPackType, itemMRP;
@@ -50,9 +33,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
 
-    public ProductAdapter(List<Product> productList) {
+    public ProductAdapter(List<Product> productList,Activity activity) {
 
         this.productList = productList;
+        strMrp = activity.getResources().getString(R.string.strMrp);
     }
 
     View v;
@@ -70,10 +54,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         final Product product = productList.get(position);
         holder.itemName.setText(product.getName());
         holder.itemPackType.setText(product.getPackType());
-        holder.itemMRP.setText("MRP. " + product.getMRP());
+        String mrp = strMrp + product.getMRP();
+        holder.itemMRP.setText(mrp);
         Picasso.with(v.getContext()).load(product.getProductImgUrl()).into(holder.itemImage);
-
-
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.mattricks.deliverit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,22 +18,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mattricks.deliverit.adapters.CartAdapter;
-import com.mattricks.deliverit.adapters.ProductAdapter;
 import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Cart;
 import com.mattricks.deliverit.model.CartProduct;
-import com.mattricks.deliverit.model.Product;
 import com.mattricks.deliverit.utilities.DividerItemDecoration;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
 import com.roughike.bottombar.BottomBar;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +79,7 @@ public class TabFragmentCart extends Fragment {
             UserId = sharedPreference.getUserId(getActivity());
             UserName = sharedPreference.getUserName(getActivity());
 
-            UserMobile = sharedPreference.getUrderMobileNumber(getActivity());
+            UserMobile = sharedPreference.getUserMobileNumber(getActivity());
 
           } catch (Exception e) {
             e.printStackTrace();
@@ -169,7 +164,7 @@ public class TabFragmentCart extends Fragment {
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
                          } catch (NullPointerException e) {
-
+                            Log.e("TagFramgmentCart",e.toString());
                         }
                     }
                 },
@@ -182,7 +177,7 @@ public class TabFragmentCart extends Fragment {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("businessId", UserId);
                 return params;
             }
@@ -200,7 +195,7 @@ public class TabFragmentCart extends Fragment {
             itemAnimator.setRemoveDuration(1000);
             recyclerViewCart.setItemAnimator(itemAnimator);
         } catch (NullPointerException e) {
-
+            Log.e("TagFramgmentCart",e.toString());
         }
     }
 

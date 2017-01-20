@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
-            android:textSize="20dp"
+            android:text="@string/strBtnSub"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
@@ -29,9 +29,9 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="number"
-            android:hint="1"
-            android:text="1"
-            android:textSize="20dp"
+            android:hint="@string/strQuantiyCart"
+            android:text="@string/strQuantiyCart"
+            android:textSize="20sp"
             android:textStyle="bold" >
 
             <requestFocus />
@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+"
-            android:textSize="20dp"
+            android:text="@string/strBtnAdd"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -75,6 +75,7 @@
                 android:id="@+id/addQuantityItemImage"
                 android:layout_width="75dp"
                 android:layout_weight="0.2"
+                android:contentDescription="@string/strAddQtyDesc"
                 android:layout_height="match_parent"
                 android:src="@drawable/h1" />
 
@@ -82,15 +83,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
-                android:layout_marginLeft="2dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/addQuantityItemName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Product Name"
+                    android:layout_gravity="start"
+                    android:text="@string/strProductName"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,15 +102,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="75gm"
-                        android:layout_gravity="left"
+                        android:layout_gravity="start"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight="0.5"/>
                     <TextView
                         android:id="@+id/addQuantityItemMRP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MRP.00"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold"
                         android:layout_weight="0.5"/>
@@ -141,8 +139,7 @@
             android:id="@+id/addQuantityDistributorprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="TextView" />
+            android:gravity="end" />
     </android.support.v7.widget.CardView>
 
 
@@ -150,8 +147,6 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_home_footer">
         </com.google.android.gms.ads.AdView>
@@ -166,8 +161,8 @@
             android:id="@+id/btn_addToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add To Cart"
-            android:textSize="20dp"
+            android:text="@string/strAddToCart"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:background="@color/colorPrimary"
             android:layout_gravity="bottom"

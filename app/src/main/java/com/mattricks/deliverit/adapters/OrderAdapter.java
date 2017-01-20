@@ -2,7 +2,6 @@ package com.mattricks.deliverit.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +64,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.itemDistributorName.setText(order.getDistributorName());
         String total = strOrderTotal + order.getOrderTotal();
         holder.itemOrderTotal.setText(total);
-        String formatedDate = FormatedDate(order.getOrderDate());
-        holder.itemOrderDate.setText(formatedDate);
+        String formattedDate = FormattedDate(order.getOrderDate());
+        holder.itemOrderDate.setText(formattedDate);
         String status =  strOrderStatus+ order.getStatus();
         holder.itemOrderStatus.setText(status);
         String orderId = strOrderId+ order.getOrderId();
@@ -74,7 +73,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     }
 
-    private String FormatedDate(String input) {
+    private String FormattedDate(String input) {
         TimeZone ist = TimeZone.getTimeZone("IST");
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");

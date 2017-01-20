@@ -2,7 +2,6 @@ package com.mattricks.deliverit;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,21 +26,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.mattricks.deliverit.adapters.DistributorAdapter;
 import com.mattricks.deliverit.adapters.ProductAdapter;
 import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Distributor;
 import com.mattricks.deliverit.model.Product;
+import com.mattricks.deliverit.utilities.CommonService;
 import com.mattricks.deliverit.utilities.DividerItemDecoration;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
-import com.mattricks.deliverit.utilities.CommonService;
 import com.roughike.bottombar.BottomBar;
 import com.squareup.picasso.Picasso;
 
@@ -103,7 +99,7 @@ public class TabFragmentProducts extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         //User = sharedPreference.getUser(rootView.getContext());
 
-        mAdapter = new ProductAdapter(productList);
+        mAdapter = new ProductAdapter(productList,getActivity());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), recyclerView, new ClickListener() {
@@ -151,7 +147,7 @@ public class TabFragmentProducts extends Fragment {
 
     private void getDistributor(final String productId, final Product oneProduct) {
         final String SelectDistributorURL = Constants.APP_URL + Constants.URL_SELECTDISTRIBUTOR;
-        final ArrayList<Distributor> distributorArrayList = new ArrayList<Distributor>();
+        final ArrayList<Distributor> distributorArrayList = new ArrayList<>();
         final DistributorAdapter mAdapterDistributor = new DistributorAdapter(distributorArrayList);
         RecyclerView.LayoutManager mLayoutManagerDistributor;
         final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
@@ -184,11 +180,7 @@ public class TabFragmentProducts extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 mPosition = position;
-                //selectDistributorPopUp(productList.get(mPosition).get_id());
-                Distributor selItem = (Distributor) distributorArrayList.get(position);//
-                String distributorName = selItem.DistributorName;
-               // Toast.makeText(getActivity(), "distributorName : " + distributorName, Toast.LENGTH_SHORT).show();
-
+                Distributor selItem = distributorArrayList.get(position);
                 dialog.dismiss();
                 addQuantityPopUp(selItem, oneProduct);
             }
@@ -222,7 +214,7 @@ public class TabFragmentProducts extends Fragment {
                                         distributorArrayList.add(distributor);
 
                                     } catch (NullPointerException e) {
-
+                                        Log.e("TagFragmentProduct",e.toString());
                                     }
                                  }
                             }
@@ -247,7 +239,7 @@ public class TabFragmentProducts extends Fragment {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("productId", productId);
                 return params;
             }
@@ -335,7 +327,7 @@ public class TabFragmentProducts extends Fragment {
                 quantity = Integer.valueOf(quan);
                 if (quantity > 1) {
                     quantity--;
-                    itemQuantity.setText("" + quantity);
+                    itemQuantity.setText(String.valueOf(quantity));
                 }
             }
         });
@@ -346,7 +338,7 @@ public class TabFragmentProducts extends Fragment {
                 String quan = itemQuantity.getText().toString();
                 quantity = Integer.valueOf(quan);
                 quantity = quantity + 1;
-                itemQuantity.setText("" + quantity);
+                itemQuantity.setText(String.valueOf(quantity));
             }
         });
 
@@ -420,7 +412,7 @@ public class TabFragmentProducts extends Fragment {
     private void getProducts(final View view) {
         final String URL = Constants.APP_URL + Constants.API_PRODUCTS;
 
-        mAdapter = new ProductAdapter(productList);
+        mAdapter = new ProductAdapter(productList,getActivity());
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -447,10 +439,11 @@ public class TabFragmentProducts extends Fragment {
                                 productList.add(product);
                             }
                         } catch (Exception e) {
+                            Log.e("TagFragmentProduct",e.toString());
                         }
 
                         try {
-                            mAdapter = new ProductAdapter(productList);
+                            mAdapter = new ProductAdapter(productList,getActivity());
                             recyclerView.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
@@ -462,7 +455,7 @@ public class TabFragmentProducts extends Fragment {
                                    listEmptyMsg.setVisibility(View.GONE);
                             }
                         } catch (NullPointerException e) {
-
+                            Log.e("TagFragmentProduct",e.toString());
                         }
                     }
                 },
@@ -475,7 +468,7 @@ public class TabFragmentProducts extends Fragment {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 return params;
             }
         };
@@ -492,7 +485,7 @@ public class TabFragmentProducts extends Fragment {
 //           itemAnimator.setRemoveDuration(1000);
 //           recyclerView.setItemAnimator(itemAnimator);
         } catch (NullPointerException e) {
-
+            Log.e("TagFragmentProduct",e.toString());
         }
     }
 

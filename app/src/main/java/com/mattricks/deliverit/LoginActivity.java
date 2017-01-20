@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +30,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by mahasagar on 23/12/16.
- */
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -130,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject JsonResult = new JSONObject(response.toString());
+                            JSONObject JsonResult = new JSONObject(response);
 
                             boolean status = JsonResult.getBoolean("status");
                             if (status) {
@@ -142,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 String result = JsonResult.getString("result");
-                                Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(view.getContext(), result, Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
@@ -158,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("username", username.trim());
                 params.put("password", password.trim());
                 return params;

@@ -2,9 +2,6 @@ package com.mattricks.deliverit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,19 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.mattricks.deliverit.adapters.CartAdapter;
 import com.mattricks.deliverit.adapters.OrderAdapter;
 import com.mattricks.deliverit.common.Constants;
-import com.mattricks.deliverit.model.Cart;
-import com.mattricks.deliverit.model.CartProduct;
 import com.mattricks.deliverit.model.Order;
 import com.mattricks.deliverit.utilities.DividerItemDecoration;
 import com.mattricks.deliverit.utilities.SharedPreference;
@@ -153,7 +145,7 @@ public class TabFragmentOrders extends Fragment {
                             recyclerViewOrder.setAdapter(mAdapter);
                             mAdapter.notifyDataSetChanged();
                         } catch (NullPointerException e) {
-
+                            Log.e("TagFramgmentOrder",e.toString());
                         }
                     }
                 },
@@ -166,7 +158,7 @@ public class TabFragmentOrders extends Fragment {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("businessId", UserId.trim());
                 return params;
             }

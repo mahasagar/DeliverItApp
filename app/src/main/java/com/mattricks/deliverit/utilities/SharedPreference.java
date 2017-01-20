@@ -2,22 +2,11 @@ package com.mattricks.deliverit.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.Toast;
 
-
-import com.google.gson.Gson;
 import com.mattricks.deliverit.common.Constants;
-import com.mattricks.deliverit.model.Distributor;
-import com.mattricks.deliverit.model.Product;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by mahasagar on 16/4/16.
@@ -43,7 +32,7 @@ public class SharedPreference {
             editor.putString(Constants.USER_PREF, null);
             editor.putBoolean(Constants.IS_USER_PREF, false);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public String getUser(Context context) {
@@ -72,7 +61,7 @@ public class SharedPreference {
         return null;
     }
 
-    public String getUrderMobileNumber(Context context) throws JSONException {
+    public String getUserMobileNumber(Context context) throws JSONException {
         String User = loadUser(context);
         JSONObject JsonResult = new JSONObject(User);
         JSONObject JsonResultContact = JsonResult.getJSONObject("contactNumbers");

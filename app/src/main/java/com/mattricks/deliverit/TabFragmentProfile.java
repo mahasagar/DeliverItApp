@@ -5,21 +5,21 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -29,9 +29,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.roughike.bottombar.BottomBar;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -128,7 +125,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
                     startActivity(i);
                     getActivity().finish();
                 }catch(NullPointerException e){
-
+                    Log.e("TagFragmentProfile",e.toString());
                 }
 
             }
@@ -166,19 +163,16 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the task you need to do.
+               /* if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
 
                     // permission denied, boo! Disable the functionality that depends on this permission.
-                }
+                }*/
                 return;
             }
         }
@@ -264,8 +258,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
                     }).addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
 
                         @Override
-                        public void onConnectionFailed(ConnectionResult result) {
-
+                        public void onConnectionFailed(@NonNull ConnectionResult result) {
                         }
                     }).build();
             mGoogleApiClient.connect();
@@ -282,10 +275,10 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
             Toast.makeText(getActivity().getApplicationContext(), "NEW LOCATION RECEIVED", Toast.LENGTH_LONG).show();
 
-            latitude.setText(getString(R.string.latitude_string) + " " + getFusedLatitude());
-            longitude.setText(getString(R.string.longitude_string) + " " + getFusedLongitude());
+            latitude.setText(String.format("%s %s", getString(R.string.latitude_string), getFusedLatitude()));
+            longitude.setText(String.format("%s %s", getString(R.string.longitude_string), getFusedLongitude()));
         } catch (NullPointerException e) {
-
+            Log.e("TagFragmentProfile",e.toString());
         }
 
     }

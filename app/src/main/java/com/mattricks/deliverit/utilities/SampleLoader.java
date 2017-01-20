@@ -22,7 +22,7 @@ public class SampleLoader extends AsyncTaskLoader<List<Product>> {
     public List<Product> loadInBackground() {
         // This method is called on a background thread and should generate a
         // new set of data to be delivered back to the client.
-        List<Product> data = new ArrayList<Product>();
+        List<Product> data = new ArrayList<>();
 
         // TODO: Perform the query here and add the results to 'data'.
 

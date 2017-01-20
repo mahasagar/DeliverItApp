@@ -3,7 +3,6 @@ package com.mattricks.deliverit.adapters;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +24,6 @@ import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Cart;
 import com.mattricks.deliverit.model.CartProduct;
 import com.mattricks.deliverit.utilities.DataProvider;
-import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
 
 import org.json.JSONObject;
@@ -36,9 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by mahasagar on 17/1/17.
- */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
     private List<Cart> cartList;
@@ -104,7 +98,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                placeOrder(UserId, cart.getDistributorId(),"PlaceOrder",cart.getDistributorName(),cartProductList);
+                placeOrder(UserId, cart.getDistributorId(), "PlaceOrder", cart.getDistributorName(), cartProductList);
                 // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -114,7 +108,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             public void onClick(View view) {
 //                cart
                 shareOrder(UserId, UserName, cart);
-                placeOrder(UserId, cart.getDistributorId(),"ShareOrder",cart.getDistributorName(),cartProductList);
+                placeOrder(UserId, cart.getDistributorId(), "ShareOrder", cart.getDistributorName(), cartProductList);
             }
         });
 
@@ -185,7 +179,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("businessId", UserId);
                 params.put("businessName", UserName);
                 params.put("distributorId", DistributorId);
@@ -197,7 +191,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     private void addToFav(ArrayList<CartProduct> cartItems) {
-        for(int i =0 ; i< cartItems.size(); i++) {
+        for (int i = 0; i < cartItems.size(); i++) {
             CartProduct cartProduct = cartItems.get(i);
             ContentValues values = new ContentValues();
             values.put(DataProvider.name, cartProduct.getName());

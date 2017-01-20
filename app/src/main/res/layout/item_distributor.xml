@@ -24,6 +24,5 @@
         android:id="@+id/tv_distributorprice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:text="TextView" />
+        android:gravity="end" />
 </android.support.v7.widget.CardView>

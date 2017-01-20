@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -28,6 +27,7 @@
                 android:id="@+id/itemImage"
                 android:layout_width="75dp"
                 android:layout_weight="0.2"
+                android:contentDescription="@string/itemProductDesc"
                 android:layout_height="match_parent"
                 android:src="@drawable/h1" />
 
@@ -35,15 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
-                android:layout_marginLeft="2dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/itemName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Product Name"
+                    android:layout_gravity="start"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <LinearLayout
@@ -57,8 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="75gm"
-                        android:layout_gravity="left"
+                        android:layout_gravity="start"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_weight="0.5" />
 
@@ -66,7 +63,6 @@
                         android:id="@+id/txtViewMRP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MRP.00"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold"
                         android:layout_weight="0.5" />

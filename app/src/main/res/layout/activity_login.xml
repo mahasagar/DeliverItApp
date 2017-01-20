@@ -18,10 +18,10 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
-            android:text="DeliverIt App"
+            android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="@string/strEmail" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="@string/strPassword"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -58,15 +58,15 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="Login"/>
+            android:text="@string/strLogin"/>
 
 
             <TextView android:id="@+id/tv_signupLink"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="No account yet? Create one"
+                android:text="@string/strSignUpLink"
                 android:gravity="center"
-                android:textSize="16dip"/>
+                android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>

@@ -4,13 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,8 +49,6 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.et_reEnterPassword)
     EditText et_reEnterPassword;
 
-    @Bind(R.id.tv_loginLink)
-    TextView tv_loginLink;
     @Bind(R.id.btnSignup)
     Button btnSignup;
 
@@ -95,7 +91,6 @@ public class SignupActivity extends AppCompatActivity {
         final String email = et_email.getText().toString();
         final String mobile = et_mobile.getText().toString();
         final String password = et_password.getText().toString();
-        final String reEnterPassword = et_reEnterPassword.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -176,7 +171,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject JsonResult = new JSONObject(response.toString());
+                            JSONObject JsonResult = new JSONObject(response);
                             boolean status = JsonResult.getBoolean("status");
                             if (status) {
                                 JSONObject JsonResultData = JsonResult.getJSONObject("result");
@@ -187,7 +182,7 @@ public class SignupActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 String result = JsonResult.getString("result");
-                                Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(view.getContext(), result, Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
@@ -203,7 +198,7 @@ public class SignupActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("name", name.trim());
                 params.put("address", address.trim());
                 params.put("username", email.trim());

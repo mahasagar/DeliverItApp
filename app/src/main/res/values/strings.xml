@@ -15,9 +15,42 @@
     <string name="strOrderStatus">Status : </string>
     <string name="banner_home_footer">ca-app-pub-9331056150273056/4833527125</string>
     <string name="widget_title">DeliverIt</string>
-    <string name="msgTitle">List Emtpy</string>
+    <string name="msgTitle">List Empty</string>
     <string name="msgContent">List is Empty.</string>
     <string name="cartMsgContent">Cart is Empty</string>
+    <string name="itemProductDesc">Product Image</string>
+    <string name="strProfileImgDesc">Profile Image</string>
+    <string name="strAddQtyDesc">Image of Product In Add Quantity</string>
+    <string name="strSignUpName">Name</string>
+    <string name="strDistributorName">Distributor Name</string>
+    <string name="strOrderDate">12/12/1212</string>
+    <string name="strProductName">Product Name</string>
+    <string name="strSignUpLink">No account yet? Create one</string>
+    <string name="strLogin">Login</string>
+    <string name="strPassword">Password</string>
+    <string name="strEmail">Email</string>
+    <string name="strCreateAccount">Create Account</string>
+    <string name="strLoginLink">Already a member? Login</string>
+    <string name="strReEnterPassword">Re-enter Password</string>
+    <string name="strMobileNumber">Mobile Number</string>
+    <string name="strAddress">Address</string>
+    <string name="strBtnSub">-</string>
+    <string name="strQuantiyCart">1</string>
+    <string name="strBtnAdd">+</string>
+    <string name="strAddToCart">Add To Cart</string>
+    <string name="strPlaceOrder">Place Order</string>
+    <string name="strShareOrder">Share Order</string>
+    <string name="strProfileEdit">Edit/View</string>
+    <string name="strWallet">Wallet</string>
+    <string name="strWishList">Wish List</string>
+    <string name="strOffers">Offers</string>
+    <string name="strInvite">Invite Friends</string>
+    <string name="strFeedback">Feedback</string>
+    <string name="strWalletValue">0</string>
+    <string name="strLogout">Logout</string>
+    <string name="strLocation">Location</string>
+    <string name="strLocationLat">Lat</string>
+    <string name="strLocationLong">Long</string>
 
 
 </resources>
