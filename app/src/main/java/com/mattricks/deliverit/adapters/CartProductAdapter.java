@@ -16,6 +16,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     private List<CartProduct> cartProductList;
     Activity thisActivity;
+    String strQuantity,strPrice,strProductTotal;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView itemName, itemQuantity, itemPrice, itemTotal;
@@ -34,6 +35,9 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
         this.cartProductList = cartProductList;
         this.thisActivity = thisActivity;
+        strQuantity =thisActivity.getResources().getString(R.string.strQuantity);
+        strPrice =thisActivity.getResources().getString(R.string.strPrice);
+        strProductTotal = thisActivity.getResources().getString(R.string.strProductTotal);
     }
 
     View v;
@@ -50,11 +54,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final CartProduct cartProduct = cartProductList.get(position);
         holder.itemName.setText(cartProduct.getName());
-        String qty = thisActivity.getResources().getString(R.string.strQuantity) + cartProduct.getQuantity();
+        String qty = strQuantity + cartProduct.getQuantity();
         holder.itemQuantity.setText(qty);
-        String price = thisActivity.getResources().getString(R.string.strPrice) + cartProduct.getDistributorPrice();
+        String price = strPrice + cartProduct.getDistributorPrice();
         holder.itemPrice.setText(price);
-        String total = thisActivity.getResources().getString(R.string.strProductTotal) + cartProduct.getTotalPricePerProduct();
+        String total = strProductTotal+ cartProduct.getTotalPricePerProduct();
         holder.itemTotal.setText(total);
     }
 

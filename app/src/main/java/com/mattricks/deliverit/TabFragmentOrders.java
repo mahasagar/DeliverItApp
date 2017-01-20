@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +52,9 @@ public class TabFragmentOrders extends Fragment {
 
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
+    @Bind(R.id.listEmptyMsg)
+    CardView listEmptyMsg;
+
     @Bind(R.id.recycler_view_orders)
     RecyclerView recyclerViewOrder;
     RecyclerView.LayoutManager mLayoutManager;
@@ -76,7 +80,6 @@ public class TabFragmentOrders extends Fragment {
         View rootView = inflater.inflate(R.layout.tabfragmentorder, container, false);
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
         ButterKnife.bind(this, rootView);
-
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerViewOrder.setLayoutManager(mLayoutManager);
         recyclerViewOrder.setAdapter(mAdapter);
@@ -127,6 +130,13 @@ public class TabFragmentOrders extends Fragment {
                             Log.d("e #: ", e.getMessage());
                         }
                         try {
+                            if(orderList.isEmpty()){
+                                recyclerViewOrder.setVisibility(View.GONE);
+                                listEmptyMsg.setVisibility(View.VISIBLE);
+                            }else {
+                                recyclerViewOrder.setVisibility(View.VISIBLE);
+                                listEmptyMsg.setVisibility(View.GONE);
+                            }
                             mAdapter = new OrderAdapter(orderList, getActivity(), UserId, TabFragmentOrders.this);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewOrder.setItemAnimator(new DefaultItemAnimator());
@@ -150,7 +160,7 @@ public class TabFragmentOrders extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response #", error.getMessage());
+                        Log.d("Error.Response #", error.toString());
                     }
                 }
         ) {

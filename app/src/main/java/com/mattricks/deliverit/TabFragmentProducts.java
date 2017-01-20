@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ import com.mattricks.deliverit.model.Product;
 import com.mattricks.deliverit.utilities.DividerItemDecoration;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
+import com.mattricks.deliverit.utilities.CommonService;
 import com.roughike.bottombar.BottomBar;
 import com.squareup.picasso.Picasso;
 
@@ -67,14 +69,20 @@ public class TabFragmentProducts extends Fragment {
     private List<Product> productList = new ArrayList<>();
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @Bind(R.id.listEmptyMsg)
+    CardView listEmptyMsg;
+
+
     RecyclerView recyclerViewDistributor;
     private ProductAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
-
     SharedPreference sharedPreference;
+    CommonService common;
 
     public TabFragmentProducts() {
         sharedPreference = new SharedPreference();
+        common = new CommonService();
     }
 
     public static TabFragmentProducts newInstance(String text, BottomBar bottomBar) {
@@ -446,6 +454,13 @@ public class TabFragmentProducts extends Fragment {
                             recyclerView.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
+                            if(productList.isEmpty()){
+                                recyclerView.setVisibility(View.GONE);
+                                listEmptyMsg.setVisibility(View.VISIBLE);
+                            }else {
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                   listEmptyMsg.setVisibility(View.GONE);
+                            }
                         } catch (NullPointerException e) {
 
                         }
@@ -530,5 +545,8 @@ public class TabFragmentProducts extends Fragment {
 
         }
     }
+
+
+
 
 }

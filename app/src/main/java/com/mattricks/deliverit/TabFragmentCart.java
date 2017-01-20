@@ -3,6 +3,7 @@ package com.mattricks.deliverit;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,8 +50,9 @@ public class TabFragmentCart extends Fragment {
     BottomBar bottomBar;
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
-    @Bind(R.id.recycler_view_cart)
-    RecyclerView recyclerViewCart;
+    @Bind(R.id.recycler_view_cart) RecyclerView recyclerViewCart;
+    @Bind(R.id.listEmptyMsg) CardView listEmptyMsg;
+
     RecyclerView.LayoutManager mLayoutManager;
     private CartAdapter mAdapter;
     private List<Cart> cartList = new ArrayList<>();
@@ -143,6 +145,13 @@ public class TabFragmentCart extends Fragment {
                             Log.d("e #: ", e.getMessage());
                         }
                         try {
+                            if(cartList.isEmpty()){
+                                recyclerViewCart.setVisibility(View.GONE);
+                                listEmptyMsg.setVisibility(View.VISIBLE);
+                            }else {
+                                recyclerViewCart.setVisibility(View.VISIBLE);
+                                listEmptyMsg.setVisibility(View.GONE);
+                            }
                             mAdapter = new CartAdapter(cartList, getActivity(), UserId, UserName, UserMobile, TabFragmentCart.this);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
