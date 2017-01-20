@@ -1,12 +1,9 @@
 package com.mattricks.deliverit.adapters;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +22,9 @@ import com.mattricks.deliverit.TabFragmentCart;
 import com.mattricks.deliverit.common.Constants;
 import com.mattricks.deliverit.model.Cart;
 import com.mattricks.deliverit.model.CartProduct;
-import com.mattricks.deliverit.model.Distributor;
-import com.mattricks.deliverit.utilities.DividerItemDecoration;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.mattricks.deliverit.utilities.VolleySingleton;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,43 +38,41 @@ import java.util.Map;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
     private List<Cart> cartList;
-    private List<CartProduct> cartProductsList;
     Activity thisActivity;
     RequestQueue requestQueue;
     RecyclerView.LayoutManager mLayoutManager;
-    SharedPreference sharedPreference;
     TabFragmentCart update;
-    String UserId = "",UserName="",UserMobile="";
+    String UserId = "", UserName = "", UserMobile = "";
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView distributorName,totalPrice;
+        public TextView distributorName, totalPrice;
         public RecyclerView recyclerview_cart_items;
-        public Button btnPlaceOrder,btnShareOrder;
+        public Button btnPlaceOrder, btnShareOrder;
 
         public MyViewHolder(View view) {
             super(view);
 
-            Log.d("(((((( #: ",""+ cartList.size());
             distributorName = (TextView) view.findViewById(R.id.tv_cart_distributor_name);
-            totalPrice= (TextView) view.findViewById(R.id.tv_cart_total_price);
-            recyclerview_cart_items = (RecyclerView)view.findViewById(R.id.recyclerview_cart_items);
-            btnPlaceOrder = (Button)view.findViewById(R.id.btnPlaceOrder);
-            btnShareOrder = (Button)view.findViewById(R.id.btnShareOrder);
-            Log.d("$$$$$$ #: ",""+ cartList.size());
+            totalPrice = (TextView) view.findViewById(R.id.tv_cart_total_price);
+            recyclerview_cart_items = (RecyclerView) view.findViewById(R.id.recyclerview_cart_items);
+            btnPlaceOrder = (Button) view.findViewById(R.id.btnPlaceOrder);
+            btnShareOrder = (Button) view.findViewById(R.id.btnShareOrder);
         }
     }
 
 
-    public CartAdapter(List<Cart> cartList, Activity activity, String UserId, String UserName,String UserMobile,TabFragmentCart one) {
+    public CartAdapter(List<Cart> cartList, Activity activity, String UserId, String UserName, String UserMobile, TabFragmentCart one) {
 
-        Log.d("construtor #: ",""+ cartList.size());
         this.cartList = cartList;
         this.thisActivity = activity;
         this.UserId = UserId;
         this.UserName = UserName;
         this.update = one;
-        this.UserMobile=UserMobile;
+        this.UserMobile = UserMobile;
     }
-    View v ;
+
+    View v;
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -94,13 +85,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        Log.d("!!!!!!!! #: ",""+ cartList.size());
         final Cart cart = cartList.get(position);
         holder.distributorName.setText(cart.getDistributorName());
         holder.totalPrice.setText(cart.getTotalPrice());
         ArrayList<CartProduct> cartProductList = new ArrayList<>();
         cartProductList = cart.getItems();
-        CartProductAdapter mCartProdAdapter = new CartProductAdapter(cartProductList,thisActivity);
+        CartProductAdapter mCartProdAdapter = new CartProductAdapter(cartProductList, thisActivity);
         mLayoutManager = new LinearLayoutManager(thisActivity);
         holder.recyclerview_cart_items.setLayoutManager(mLayoutManager);
 
@@ -109,8 +99,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                placeOrder(UserId, cart.getDistributorId());
-               // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
+                placeOrder(UserId, cart.getDistributorId(),"PlaceOrder");
+                // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -118,7 +108,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 //                cart
-                 shareOrder(UserId,UserName,cart);
+                shareOrder(UserId, UserName, cart);
+                placeOrder(UserId, cart.getDistributorId(),"ShareOrder");
             }
         });
 
@@ -126,18 +117,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     private void shareOrder(String userId, String userName, Cart cart) {
-        String shareOrder = "\n New Order by "+userName +"\n";
-        shareOrder = shareOrder + "Mobile Number : "+UserMobile+"\n";
+        String shareOrder = "\n New Order by " + userName + "\n";
+        shareOrder = shareOrder + "Mobile Number : " + UserMobile + "\n";
         int total = 0;
-        String itemsToShare="\n";
+        String itemsToShare = "\n";
         ArrayList<CartProduct> items = cart.getItems();
-        for(int i = 0; i <items.size();i++){
-            itemsToShare = itemsToShare + (i+1) +"."+items.get(i).getName()+"\n";
-            itemsToShare = itemsToShare + "Qty." +items.get(i).getQuantity();
-            itemsToShare = itemsToShare + "* Rs." +items.get(i).getDistributorPrice();
-            int totalPerItem = ( Integer.valueOf(items.get(i).getQuantity()) * Integer.valueOf(items.get(i).getDistributorPrice()));
-            itemsToShare = itemsToShare + "= Rs. " + totalPerItem +"\n\n";
-            total = total+ totalPerItem;
+        for (int i = 0; i < items.size(); i++) {
+            itemsToShare = itemsToShare + (i + 1) + "." + items.get(i).getName() + "\n";
+            itemsToShare = itemsToShare + "Qty." + items.get(i).getQuantity();
+            itemsToShare = itemsToShare + "* Rs." + items.get(i).getDistributorPrice();
+            int totalPerItem = (Integer.valueOf(items.get(i).getQuantity()) * Integer.valueOf(items.get(i).getDistributorPrice()));
+            itemsToShare = itemsToShare + "= Rs. " + totalPerItem + "\n\n";
+            total = total + totalPerItem;
         }
         itemsToShare = itemsToShare + "Total : Rs." + total;
         shareOrder = shareOrder + itemsToShare;
@@ -147,8 +138,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 shareOrder);
         sendIntent.setType("text/plain");
         thisActivity.startActivity(sendIntent);
-        Toast.makeText(thisActivity,"Order Shared to " + cart.getDistributorName()  ,
+        Toast.makeText(thisActivity, "Order Shared to " + cart.getDistributorName(),
                 Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -156,19 +148,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return cartList.size();
     }
 
-
-    private void placeOrder(final String UserId, final String DistributorId) {
+    private void placeOrder(final String UserId, final String DistributorId, final String OrderType) {
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
         final String URL = Constants.APP_URL + Constants.URL_PLACEORDER;
-        Log.d("URL #: ", URL);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response #: ", response);
                         try {
                             JSONObject JsonResult = new JSONObject(response);
-                            if(JsonResult.getBoolean("result")){
+                            if (JsonResult.getBoolean("result")) {
                                 update.getCartDetails(update.getView());
                             }
 
@@ -188,16 +177,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("businessId",UserId);
-                params.put("businessName",UserName);
-                params.put("distributorId",DistributorId);
-                params.put("orderType","MOBORDER");
+                params.put("businessId", UserId);
+                params.put("businessName", UserName);
+                params.put("distributorId", DistributorId);
+                params.put("orderType", OrderType);
                 return params;
             }
         };
         requestQueue.add(postRequest);
     }
-
 
 
 }

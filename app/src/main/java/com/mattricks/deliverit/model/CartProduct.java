@@ -8,44 +8,44 @@ import android.os.Parcelable;
  */
 public class CartProduct implements Parcelable {
 
-    public String productId, brand,form,marketingCompanyName,name,productImgUrl,packSize, packType;
-    public String distributorPrice,MRP,distributorId,distributorName,quantity,totalPricePerProduct;
+    public String productId, brand, form, marketingCompanyName, name, productImgUrl, packSize, packType;
+    public String distributorPrice, MRP, distributorId, distributorName, quantity, totalPricePerProduct;
 
     public CartProduct() {
     }
 
-    public CartProduct(String productId,String brand,String form,String marketingCompanyName,String name,String productImgUrl,
-                   String packSize,String packType,
-                   String distributorPrice,String MRP,String distributorId,String distributorName,String quantity,String totalPricePerProduct) {
+    public CartProduct(String productId, String brand, String form, String marketingCompanyName, String name, String productImgUrl,
+                       String packSize, String packType,
+                       String distributorPrice, String MRP, String distributorId, String distributorName, String quantity, String totalPricePerProduct) {
         this.productId = productId;
         this.brand = brand;
         this.form = form;
-        this.marketingCompanyName=marketingCompanyName;
+        this.marketingCompanyName = marketingCompanyName;
         this.name = name;
         this.productImgUrl = productImgUrl;
         this.packSize = packSize;
         this.packType = packType;
-        this.distributorPrice=distributorPrice;
+        this.distributorPrice = distributorPrice;
         this.MRP = MRP;
         this.distributorId = distributorId;
-        this.distributorName=distributorName;
+        this.distributorName = distributorName;
         this.quantity = quantity;
         this.totalPricePerProduct = totalPricePerProduct;
     }
 
     protected CartProduct(Parcel in) {
         productId = in.readString();
-        brand =in.readString();
+        brand = in.readString();
         form = in.readString();
-        marketingCompanyName=in.readString();
+        marketingCompanyName = in.readString();
         name = in.readString();
         productImgUrl = in.readString();
         packSize = in.readString();
         packType = in.readString();
-        distributorPrice= in.readString();
+        distributorPrice = in.readString();
         MRP = in.readString();
         distributorId = in.readString();
-        distributorName= in.readString();
+        distributorName = in.readString();
         quantity = in.readString();
         totalPricePerProduct = in.readString();
     }

@@ -35,64 +35,28 @@ import java.util.Map;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
     private List<Product> productList;
-    RequestQueue requestQueue;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView itemName,itemPackType,itemMRP,itemQuantity;
+        public TextView itemName, itemPackType, itemMRP;
         public ImageView itemImage;
-        public Button btn_sub_quantity,btn_add_quantity,btnAddToCart;
 
-        int quantity_product = 1;
-        String str_quantity_product = "";
         public MyViewHolder(View view) {
             super(view);
             itemName = (TextView) view.findViewById(R.id.itemName);
             itemImage = (ImageView) view.findViewById(R.id.itemImage);
             itemPackType = (TextView) view.findViewById(R.id.itemPackType);
             itemMRP = (TextView) view.findViewById(R.id.txtViewMRP);
-           /* itemQuantity = (TextView) view.findViewById(R.id.itemQuantity);
-
-            btn_sub_quantity = (Button) view.findViewById(R.id.btn_sub_quantity);
-            btn_add_quantity = (Button) view.findViewById(R.id.btn_add_quantity);
-            btnAddToCart = (Button) view.findViewById(R.id.btnAddToCart);
-
-            btn_sub_quantity.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (quantity_product > 1) {
-                        quantity_product--;
-                        str_quantity_product = Integer.toString(quantity_product);
-                        itemQuantity.setText(str_quantity_product);
-                    }
-
-                }
-            });
-            btn_add_quantity.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-
-                    quantity_product++;
-                    str_quantity_product=Integer.toString(quantity_product);
-                    itemQuantity.setText(str_quantity_product);
-
-                }
-            });*/
-
-
-
         }
     }
 
 
     public ProductAdapter(List<Product> productList) {
 
-        Log.d("construtor #: ",""+ productList.size());
         this.productList = productList;
     }
-    View v ;
+
+    View v;
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -104,12 +68,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Product product = productList.get(position);
-
-        Log.d("here #: ",""+ productList.size());
-        Log.d("product.getName() #: ",""+ product.getName());
         holder.itemName.setText(product.getName());
         holder.itemPackType.setText(product.getPackType());
-        holder.itemMRP.setText("MRP. "+product.getMRP());
+        holder.itemMRP.setText("MRP. " + product.getMRP());
         Picasso.with(v.getContext()).load(product.getProductImgUrl()).into(holder.itemImage);
 
 

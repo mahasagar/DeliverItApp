@@ -104,7 +104,7 @@ public class TabFragmentProducts extends Fragment {
                 mPosition = position;
                 Product oneProduct = productList.get(mPosition);
                 // Toast.makeText(getActivity(),"size : "+,Toast.LENGTH_SHORT).show();
-                selectDistributorPopUp(productList.get(mPosition).get_id(),oneProduct);
+                selectDistributorPopUp(productList.get(mPosition).get_id(), oneProduct);
             }
 
             @Override
@@ -114,20 +114,20 @@ public class TabFragmentProducts extends Fragment {
         }));
 
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                /*final MaterialDialog filter = new MaterialDialog(getActivity())
+                *//*final MaterialDialog filter = new MaterialDialog(getActivity())
                         .setTitle("Filter Explore")
                         .setContentView(
                                 R.layout.custom_filter_layout);
 
 
-                filter.show();*/
+                filter.show();*//*
             }
-        });
+        });*/
 
         getProducts(rootView);
         return rootView;
@@ -136,8 +136,8 @@ public class TabFragmentProducts extends Fragment {
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-    protected void selectDistributorPopUp(String productId,Product oneProduct) {
-        getDistributor(productId,oneProduct);
+    protected void selectDistributorPopUp(String productId, Product oneProduct) {
+        getDistributor(productId, oneProduct);
     }
 
 
@@ -179,10 +179,10 @@ public class TabFragmentProducts extends Fragment {
                 //selectDistributorPopUp(productList.get(mPosition).get_id());
                 Distributor selItem = (Distributor) distributorArrayList.get(position);//
                 String distributorName = selItem.DistributorName;
-                Toast.makeText(getActivity(), "distributorName : " + distributorName, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "distributorName : " + distributorName, Toast.LENGTH_SHORT).show();
 
                 dialog.dismiss();
-                addQuantityPopUp(selItem,oneProduct);
+                addQuantityPopUp(selItem, oneProduct);
             }
 
             @Override
@@ -196,20 +196,17 @@ public class TabFragmentProducts extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response #: ", response);
                         try {
                             JSONArray JsonResult = new JSONArray(response);
 
                             for (int i = 0; i < JsonResult.length(); i++) {
                                 JSONObject object = JsonResult.getJSONObject(i);
 
-                                Log.d("Response object #: ", object.toString());
                                 JSONArray JsonDistributorArray = new JSONArray(object.getString("distributors"));
                                 for (int j = 0; j < JsonDistributorArray.length(); j++) {
 
                                     Distributor distributor = new Distributor();
                                     JSONObject JsonDistributorObject = JsonDistributorArray.getJSONObject(j);
-                                    Log.d("Response object #: ", "s : " + JsonDistributorObject.getString("_id"));
                                     try {
                                         distributor.DistributorID = JsonDistributorObject.getString("_id");
                                         distributor.DistributorName = JsonDistributorObject.getString("name");
@@ -219,22 +216,13 @@ public class TabFragmentProducts extends Fragment {
                                     } catch (NullPointerException e) {
 
                                     }
-                                    Log.d("Response object #: ", "s : " + distributorArrayList.size());
-                                }
+                                 }
                             }
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
                         }
 
                         try {
-                            Log.d("productList after #: ", "" + distributorArrayList.size());
-
-                        /*alertDialogStores = new AlertDialog.Builder(getActivity())
-                                .setView(recyclerViewDistributor)
-                                .setTitle("Select Distributor").show();
-                        alertDialogStores.getWindow ().setLayout (LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
-                        alertDialogStores.setView(recyclerViewDistributor);*/
                             dialog.show();
                             recyclerViewDistributor.setAdapter(mAdapterDistributor);
                         } catch (Exception e) {
@@ -285,18 +273,22 @@ public class TabFragmentProducts extends Fragment {
             @Override
             public void onAdLoaded() {
             }
+
             @Override
             public void onAdClosed() {
-                Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onAdLeftApplication() {
-                Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onAdOpened() {
                 super.onAdOpened();
@@ -306,10 +298,10 @@ public class TabFragmentProducts extends Fragment {
         mAdView.loadAd(adRequest);
 
 
-        Button btn_addToCart = (Button)dialog.findViewById(R.id.btn_addToCart);
+        Button btn_addToCart = (Button) dialog.findViewById(R.id.btn_addToCart);
 
-        Button btn_sub = (Button)dialog.findViewById(R.id.btn_sub);
-        Button btn_add = (Button)dialog.findViewById(R.id.btn_add);
+        Button btn_sub = (Button) dialog.findViewById(R.id.btn_sub);
+        Button btn_add = (Button) dialog.findViewById(R.id.btn_add);
         itemQuantity = (EditText) dialog.findViewById(R.id.et_quantity);
 
         ImageView addQuantityItemImage = (ImageView) dialog.findViewById(R.id.addQuantityItemImage);
@@ -345,7 +337,7 @@ public class TabFragmentProducts extends Fragment {
 
                 String quan = itemQuantity.getText().toString();
                 quantity = Integer.valueOf(quan);
-                quantity=quantity+1;
+                quantity = quantity + 1;
                 itemQuantity.setText("" + quantity);
             }
         });
@@ -358,17 +350,15 @@ public class TabFragmentProducts extends Fragment {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("CART ### #: ", response);
                                 try {
                                     JSONObject JsonResult = new JSONObject(response);
                                     boolean status = JsonResult.getBoolean("status");
-                                    Log.d("status ### #: ", status+"");
-                                    if(!status){
+                                    if (!status) {
                                         String result = JsonResult.getString("result");
-                                        Toast.makeText(getActivity(), result , Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
-                                    }else{
-                                        Toast.makeText(getActivity(),  oneProduct.getName() +" Added To Cart", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), oneProduct.getName() + " Added To Cart", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                     }
                                 } catch (Exception e) {
@@ -427,7 +417,6 @@ public class TabFragmentProducts extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response #: ", response);
                         productList.clear();
                         try {
                             JSONArray JsonResult = new JSONArray(response);
@@ -435,7 +424,6 @@ public class TabFragmentProducts extends Fragment {
                             for (int i = 0; i < JsonResult.length(); i++) {
                                 JSONObject object = JsonResult.getJSONObject(i);
 
-                                Log.d("object #: ", object.toString());
                                 String _id = object.getString("_id");
                                 String brand = object.getString("brand");
                                 String form = object.getString("form");
@@ -451,16 +439,13 @@ public class TabFragmentProducts extends Fragment {
                                 productList.add(product);
                             }
                         } catch (Exception e) {
-                            Log.d("e #: ", e.getMessage());
                         }
 
                         try {
-                            Log.d("productList after #: ", "" + productList.size());
                             mAdapter = new ProductAdapter(productList);
                             recyclerView.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
-                            Log.d("productList #: ", "" + productList.size());
                         } catch (NullPointerException e) {
 
                         }

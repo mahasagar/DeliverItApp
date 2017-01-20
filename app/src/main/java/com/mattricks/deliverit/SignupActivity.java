@@ -38,19 +38,27 @@ import butterknife.OnClick;
 public class SignupActivity extends AppCompatActivity {
 
 
+    @Bind(R.id.et_name)
+    EditText et_name;
+    @Bind(R.id.et_address)
+    EditText et_address;
+    @Bind(R.id.et_email)
+    EditText et_email;
+    @Bind(R.id.et_mobile)
+    EditText et_mobile;
+    @Bind(R.id.et_password)
+    EditText et_password;
+    @Bind(R.id.et_reEnterPassword)
+    EditText et_reEnterPassword;
 
-    @Bind(R.id.et_name) EditText et_name;
-    @Bind(R.id.et_address) EditText et_address;
-    @Bind(R.id.et_email) EditText et_email;
-    @Bind(R.id.et_mobile) EditText et_mobile;
-    @Bind(R.id.et_password) EditText et_password;
-    @Bind(R.id.et_reEnterPassword) EditText et_reEnterPassword;
-
-    @Bind(R.id.tv_loginLink) TextView tv_loginLink;
-    @Bind(R.id.btnSignup) Button btnSignup;
+    @Bind(R.id.tv_loginLink)
+    TextView tv_loginLink;
+    @Bind(R.id.btnSignup)
+    Button btnSignup;
 
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnSignup)
     public void doSignup(final View view) {
-        if(!validate()) {
+        if (!validate()) {
             onSignupFailed();
             return;
         }
@@ -93,11 +101,12 @@ public class SignupActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         progressDialog.dismiss();
-                        getSignup(name,address,email,mobile,password,view);
+                        getSignup(name, address, email, mobile, password, view);
                         btnSignup.setEnabled(true);
                     }
                 }, 3000);
     }
+
     private void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
         btnSignup.setEnabled(true);
@@ -135,7 +144,7 @@ public class SignupActivity extends AppCompatActivity {
             et_email.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=10) {
+        if (mobile.isEmpty() || mobile.length() != 10) {
             et_mobile.setError("Enter Valid Mobile Number");
             valid = false;
         } else {
@@ -163,45 +172,43 @@ public class SignupActivity extends AppCompatActivity {
     private void getSignup(final String name, final String address, final String email, final String mobile, final String password, final View view) {
         final String URL = Constants.APP_URL + Constants.API_SIGNUP;
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {@Override
-                public void onResponse(String response) {
-                    Log.d("Response #: ", response);
-                    try {
-                        JSONObject JsonResult = new JSONObject(response.toString());
-                        boolean status = JsonResult.getBoolean("status");
-                        if(status) {
-                            JSONObject JsonResultData = JsonResult.getJSONObject("result");
-                            sharedPreference.removeUser(view.getContext());
-                            sharedPreference.addUser(view.getContext(), JsonResultData);
-                            Intent i = new Intent(SignupActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        }else{
-                            String result = JsonResult.getString("result");
-                            Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject JsonResult = new JSONObject(response.toString());
+                            boolean status = JsonResult.getBoolean("status");
+                            if (status) {
+                                JSONObject JsonResultData = JsonResult.getJSONObject("result");
+                                sharedPreference.removeUser(view.getContext());
+                                sharedPreference.addUser(view.getContext(), JsonResultData);
+                                Intent i = new Intent(SignupActivity.this, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            } else {
+                                String result = JsonResult.getString("result");
+                                Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            Log.d("e #: ", e.getMessage());
                         }
-                    }catch(Exception e){
-                        Log.d("e #: ", e.getMessage());
                     }
-                }
                 },
-                new Response.ErrorListener()
-                {@Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error.Response #", error.getMessage());
-                }
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response #", error.getMessage());
+                    }
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("name",name.trim());
-                params.put("address",address.trim());
-                params.put("username",email.trim());
-                params.put("mobile",mobile.trim());
-                params.put("password",password.trim());
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name.trim());
+                params.put("address", address.trim());
+                params.put("username", email.trim());
+                params.put("mobile", mobile.trim());
+                params.put("password", password.trim());
                 return params;
             }
         };

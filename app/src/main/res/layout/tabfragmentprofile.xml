@@ -144,7 +144,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_user_to_client"
+                    android:id="@+id/btnLogout"
                     android:layout_gravity="left"
                     android:padding="4dp"
                     android:textColor="@color/white"

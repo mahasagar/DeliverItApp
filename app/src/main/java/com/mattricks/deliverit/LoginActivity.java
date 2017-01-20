@@ -38,13 +38,18 @@ import butterknife.OnClick;
 public class LoginActivity extends AppCompatActivity {
 
 
-    @Bind(R.id.et_email) EditText et_email;
-    @Bind(R.id.et_password) EditText et_password;
-    @Bind(R.id.tv_signupLink) TextView tv_signupLink;
-    @Bind(R.id.btnSignIn) Button btnSignIn;
+    @Bind(R.id.et_email)
+    EditText et_email;
+    @Bind(R.id.et_password)
+    EditText et_password;
+    @Bind(R.id.tv_signupLink)
+    TextView tv_signupLink;
+    @Bind(R.id.btnSignIn)
+    Button btnSignIn;
 
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +61,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_signupLink)
     public void goToSignup(View view) {
-       Intent i = new Intent(getApplicationContext(), SignupActivity.class);
+        Intent i = new Intent(getApplicationContext(), SignupActivity.class);
         startActivity(i);
         finish();
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
+
     @OnClick(R.id.btnSignIn)
     public void doLogin(final View view) {
 
@@ -116,48 +122,45 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-    private void getLogin( final String username, final String password, final View view) {
-        final String URL =Constants.APP_URL + Constants.API_LOGIN;
+    private void getLogin(final String username, final String password, final View view) {
+        final String URL = Constants.APP_URL + Constants.API_LOGIN;
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {@Override
+                new Response.Listener<String>() {
+                    @Override
                     public void onResponse(String response) {
-                        Log.d("Response #: ", response);
-                    try {
-                        JSONObject JsonResult = new JSONObject(response.toString());
+                        try {
+                            JSONObject JsonResult = new JSONObject(response.toString());
 
-                        boolean status = JsonResult.getBoolean("status");
-                        if(status) {
-                            JSONObject JsonResultData = JsonResult.getJSONObject("result");
-                            //Toast.makeText(view.getContext(), "JsonResultData : " + JsonResultData.toString(), Toast.LENGTH_LONG).show();
-                            sharedPreference.removeUser(view.getContext());
-                            sharedPreference.addUser(view.getContext(), JsonResultData);
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        }else{
-                            String result = JsonResult.getString("result");
-                            Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                            boolean status = JsonResult.getBoolean("status");
+                            if (status) {
+                                JSONObject JsonResultData = JsonResult.getJSONObject("result");
+                                sharedPreference.removeUser(view.getContext());
+                                sharedPreference.addUser(view.getContext(), JsonResultData);
+                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            } else {
+                                String result = JsonResult.getString("result");
+                                Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            Log.d("e #: ", e.getMessage());
                         }
-                    }catch(Exception e){
-                        Log.d("e #: ", e.getMessage());
-                    }
                     }
                 },
-                new Response.ErrorListener()
-                {@Override
+                new Response.ErrorListener() {
+                    @Override
                     public void onErrorResponse(VolleyError error) {
-                          Log.d("Error.Response #", error.toString());
-                   }
+                        Log.d("Error.Response #", error.toString());
+                    }
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",username.trim());
-                params.put("password",password.trim());
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username.trim());
+                params.put("password", password.trim());
                 return params;
             }
         };

@@ -36,47 +36,40 @@ public class DistributorAdapter extends RecyclerView.Adapter<DistributorAdapter.
     private List<Distributor> distributorList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView distributorName,distributorPrice;
+        public TextView distributorName, distributorPrice;
 
         public MyViewHolder(View view) {
             super(view);
-
-            Log.d("(((((( #: ",""+ distributorList.size());
             distributorName = (TextView) view.findViewById(R.id.tv_distributorname);
             distributorPrice = (TextView) view.findViewById(R.id.tv_distributorprice);
 
-            Log.d("$$$$$$ #: ",""+ distributorList.size());
         }
     }
 
 
     public DistributorAdapter(List<Distributor> distributorList) {
 
-        Log.d("construtor #: ",""+ distributorList.size());
         this.distributorList = distributorList;
     }
-    View v ;
+
+    View v;
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        Log.d("### #: ",""+ distributorList.size());
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_distributor, parent, false);
         itemView.setLayoutParams(
                 new RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT));
-
         v = itemView;
-
-        Log.d("^^^^^^^^^^ #: ",""+ distributorList.size());
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        Log.d("!!!!!!!! #: ",""+ distributorList.size());
         final Distributor distributor = distributorList.get(position);
         holder.distributorName.setText(distributor.getDistributorName());
         holder.distributorPrice.setText(distributor.getDistributorPrice());
@@ -87,50 +80,4 @@ public class DistributorAdapter extends RecyclerView.Adapter<DistributorAdapter.
         return distributorList.size();
     }
 
-/*
-    private void addToCart( final String username, final String password, final View view) {
-
-        requestQueue = VolleySingleton.getInstance().getREquestQueue();
-        final String URL = Constants.APP_URL + Constants.API_LOGIN;
-
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {@Override
-                public void onResponse(String response) {
-                    Log.d("Response #: ", response);
-                    try {
-                        JSONObject JsonResult = new JSONObject(response.toString());
-
-                        boolean status = JsonResult.getBoolean("status");
-                        if(status) {
-                            JSONObject JsonResultData = JsonResult.getJSONObject("result");
-                            //Toast.makeText(view.getContext(), "JsonResultData : " + JsonResultData.toString(), Toast.LENGTH_LONG).show();
-
-                        }else{
-                            String result = JsonResult.getString("result");
-                            Toast.makeText(view.getContext(), result.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }catch(Exception e){
-                        Log.d("e #: ", e.getMessage());
-                    }
-                }
-                },
-                new Response.ErrorListener()
-                {@Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error.Response #", error.getMessage());
-                }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",username.trim());
-                params.put("password",password.trim());
-                return params;
-            }
-        };
-        requestQueue.add(postRequest);
-    }*/
 }

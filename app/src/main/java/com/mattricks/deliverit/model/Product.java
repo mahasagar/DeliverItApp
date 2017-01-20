@@ -8,42 +8,42 @@ import android.os.Parcelable;
  */
 public class Product implements Parcelable {
 
-    public String _id, brand,form,marketingCompanyName,name,productImgUrl,packSize, packType;
-    public String distributorPrice,MRP,distributorId,distributorName;
+    public String _id, brand, form, marketingCompanyName, name, productImgUrl, packSize, packType;
+    public String distributorPrice, MRP, distributorId, distributorName;
 
     public Product() {
     }
 
-    public Product(String _id,String brand,String form,String marketingCompanyName,String name,String productImgUrl,
-                   String packSize,String packType,
-                   String distributorPrice,String MRP,String distributorId,String distributorName) {
+    public Product(String _id, String brand, String form, String marketingCompanyName, String name, String productImgUrl,
+                   String packSize, String packType,
+                   String distributorPrice, String MRP, String distributorId, String distributorName) {
         this._id = _id;
         this.brand = brand;
         this.form = form;
-        this.marketingCompanyName=marketingCompanyName;
+        this.marketingCompanyName = marketingCompanyName;
         this.name = name;
         this.productImgUrl = productImgUrl;
         this.packSize = packSize;
         this.packType = packType;
-        this.distributorPrice=distributorPrice;
+        this.distributorPrice = distributorPrice;
         this.MRP = MRP;
         this.distributorId = distributorId;
-        this.distributorName=distributorName;
+        this.distributorName = distributorName;
     }
 
     protected Product(Parcel in) {
         _id = in.readString();
-        brand =in.readString();
+        brand = in.readString();
         form = in.readString();
-        marketingCompanyName=in.readString();
+        marketingCompanyName = in.readString();
         name = in.readString();
         productImgUrl = in.readString();
         packSize = in.readString();
         packType = in.readString();
-        distributorPrice= in.readString();
+        distributorPrice = in.readString();
         MRP = in.readString();
         distributorId = in.readString();
-        distributorName= in.readString();
+        distributorName = in.readString();
     }
 
     public void set_id(String _id) {

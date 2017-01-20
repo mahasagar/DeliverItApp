@@ -56,18 +56,16 @@ public class TabFragmentOrders extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     private OrderAdapter mAdapter;
     private List<Order> orderList = new ArrayList<>();
-    String UserName = null,UserId = null;
-    private BottomBar bottomBar;
+    String UserName = null, UserId = null;
 
-    public TabFragmentOrders(){
+    public TabFragmentOrders() {
 
         sharedPreference = new SharedPreference();
     }
 
-    public static TabFragmentOrders newInstance(String text,BottomBar bottomBar ) {
+    public static TabFragmentOrders newInstance(String text, BottomBar bottomBar) {
         Bundle args = new Bundle();
         TabFragmentOrders sampleFragment = new TabFragmentOrders();
-        sampleFragment.bottomBar = bottomBar;
         sampleFragment.setArguments(args);
         return sampleFragment;
     }
@@ -75,7 +73,7 @@ public class TabFragmentOrders extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.tabfragmentorder, container, false);
+        View rootView = inflater.inflate(R.layout.tabfragmentorder, container, false);
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
         ButterKnife.bind(this, rootView);
 
@@ -87,14 +85,12 @@ public class TabFragmentOrders extends Fragment {
             UserId = sharedPreference.getUserId(getActivity());
             UserName = sharedPreference.getUserName(getActivity());
 
-            Log.d("UserId b #: ", UserId);
-            Log.d("UserName b #: ", UserName);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("$$$$$$$$ b #: ", e.toString());
         }
 
-        mAdapter = new OrderAdapter(orderList,getActivity(),UserId,TabFragmentOrders.this);
+        mAdapter = new OrderAdapter(orderList, getActivity(), UserId, TabFragmentOrders.this);
         getOrderDetails(rootView);
         return rootView;
     }
@@ -105,11 +101,10 @@ public class TabFragmentOrders extends Fragment {
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
         final String URL = Constants.APP_URL + Constants.URL_GETORDERS;
 
-        Log.d("URL #: ",URL+"");
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {@Override
-                public void onResponse(String response) {
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
                         orderList.clear();
                         try {
                             JSONArray jsonArrayOrders = new JSONArray(response);
@@ -125,50 +120,44 @@ public class TabFragmentOrders extends Fragment {
                                 order.setOrderTotal(jsonOneOrder.getString("grandTotal"));
                                 order.setStatus(jsonOneOrder.getString("orderStatus"));
                                 order.setOrderId(jsonOneOrder.getString("orderId"));
-                                // object.getString("items");
-                               // JSONArray json_items_products = new JSONArray(jsonOneOrder.getString("items"));
-
                                 orderList.add(order);
-                                Log.d("object #: ", orderList.size()+"");
 
                             }
-                    }catch(Exception e){
-                        Log.d("e #: ", e.getMessage());
+                        } catch (Exception e) {
+                            Log.d("e #: ", e.getMessage());
+                        }
+                        try {
+                            mAdapter = new OrderAdapter(orderList, getActivity(), UserId, TabFragmentOrders.this);
+                            mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                            recyclerViewOrder.setItemAnimator(new DefaultItemAnimator());
+                            recyclerViewOrder.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                            recyclerViewOrder.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+                            RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+                            itemAnimator.setAddDuration(1000);
+                            itemAnimator.setRemoveDuration(1000);
+                            recyclerViewOrder.setItemAnimator(itemAnimator);
+                            recyclerViewOrder.setLayoutManager(mLayoutManager);
+
+                            recyclerViewOrder.setNestedScrollingEnabled(false);
+                            recyclerViewOrder.setAdapter(mAdapter);
+                            mAdapter.notifyDataSetChanged();
+                        } catch (NullPointerException e) {
+
+                        }
                     }
-                    try {
-                        Log.d("productList after #: ", "" + orderList.size());
-                        mAdapter = new OrderAdapter(orderList,getActivity(),UserId,TabFragmentOrders.this);
-                        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-                        recyclerViewOrder.setItemAnimator(new DefaultItemAnimator());
-                        recyclerViewOrder.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                        recyclerViewOrder.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
-                        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-                        itemAnimator.setAddDuration(1000);
-                        itemAnimator.setRemoveDuration(1000);
-                        recyclerViewOrder.setItemAnimator(itemAnimator);
-                        recyclerViewOrder.setLayoutManager(mLayoutManager);
-
-                        recyclerViewOrder.setNestedScrollingEnabled(false);
-                        recyclerViewOrder.setAdapter(mAdapter);
-                        mAdapter.notifyDataSetChanged();
-                    } catch (NullPointerException e) {
-
-                    }
-                }
                 },
-                new Response.ErrorListener()
-                {@Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error.Response #", error.getMessage());
-                }
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response #", error.getMessage());
+                    }
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("businessId",UserId.trim());
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("businessId", UserId.trim());
                 return params;
             }
         };

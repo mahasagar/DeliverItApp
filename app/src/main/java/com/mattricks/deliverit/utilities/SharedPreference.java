@@ -36,15 +36,16 @@ public class SharedPreference {
         settings = context.getSharedPreferences(Constants.PREFS_NAME,
                 Context.MODE_PRIVATE);
         editor = settings.edit();
-        if(user != null && user.toString() != ""){
+        if (user != null && user.toString() != "") {
             editor.putString(Constants.USER_PREF, user.toString());
             editor.putBoolean(Constants.IS_USER_PREF, true);
-        }else{
+        } else {
             editor.putString(Constants.USER_PREF, null);
             editor.putBoolean(Constants.IS_USER_PREF, false);
         }
         editor.commit();
     }
+
     public String getUser(Context context) {
         String User = loadUser(context);
         if (User != null && User != "") {
@@ -56,10 +57,7 @@ public class SharedPreference {
     public String getUserId(Context context) throws JSONException {
         String User = loadUser(context);
         JSONObject JsonResult = new JSONObject(User);
-        Log.d("JsonResult : ",JsonResult.getString("email"));
-        //JSONArray JsonDistributorArray = new JSONArray(object.getString("distributors"));
-          //  JSONObject JsonDistributorObject = JsonDistributorArray.getJSONObject(j);
-            if (JsonResult != null && JsonResult.toString() != "") {
+        if (JsonResult != null && JsonResult.toString() != "") {
             return JsonResult.getString("_id");
         }
         return null;
@@ -68,19 +66,16 @@ public class SharedPreference {
     public String getUserName(Context context) throws JSONException {
         String User = loadUser(context);
         JSONObject JsonResult = new JSONObject(User);
-        Log.d("JsonResult : ",JsonResult.getString("email"));
-        //JSONArray JsonDistributorArray = new JSONArray(object.getString("distributors"));
-        //  JSONObject JsonDistributorObject = JsonDistributorArray.getJSONObject(j);
         if (JsonResult != null && JsonResult.toString() != "") {
             return JsonResult.getString("name");
         }
         return null;
     }
+
     public String getUrderMobileNumber(Context context) throws JSONException {
         String User = loadUser(context);
         JSONObject JsonResult = new JSONObject(User);
         JSONObject JsonResultContact = JsonResult.getJSONObject("contactNumbers");
-        Log.d("JsonResult : ",JsonResultContact.getString("mobile"));
         if (JsonResult != null && JsonResult.toString() != "" && JsonResultContact != null) {
             return JsonResultContact.getString("mobile");
         }
@@ -88,17 +83,12 @@ public class SharedPreference {
     }
 
 
-
-
-
-
     public boolean isLogin(Context context) {
         SharedPreferences settings;
-        boolean isLogin=false;
-        settings = context.getSharedPreferences(Constants.PREFS_NAME,Context.MODE_PRIVATE);
+        boolean isLogin = false;
+        settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
         if (settings.contains(Constants.IS_USER_PREF)) {
             isLogin = settings.getBoolean(Constants.IS_USER_PREF, false);
-            System.out.println("isLogin : " + isLogin);
         } else
             return false;
 
@@ -108,17 +98,18 @@ public class SharedPreference {
     public String loadUser(Context context) {
         SharedPreferences settings;
         String jsonUser = "";
-        settings = context.getSharedPreferences(Constants.PREFS_NAME,Context.MODE_PRIVATE);
+        settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
         if (settings.contains(Constants.USER_PREF)) {
             jsonUser = settings.getString(Constants.USER_PREF, null);
-            System.out.println("jsonFavorites" + jsonUser);
         } else
             return null;
         return jsonUser;
     }
+
     public void addUser(Context context, JSONObject userDetails) {
         storeUser(context, userDetails);
     }
+
     public void removeUser(Context context) {
         storeUser(context, null);
     }

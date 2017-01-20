@@ -6,9 +6,6 @@ import android.content.Context;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by sagar on 1/2/16.
- */
 public class MyApplication extends Application {
     private static MyApplication sInstance;
 
@@ -25,11 +22,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
-        mInstance=this;
+        mInstance = this;
 
     }
 
-    public static MyApplication getInstance(){
+    public static MyApplication getInstance() {
 
         return mInstance;
 
@@ -37,7 +34,7 @@ public class MyApplication extends Application {
     }
 
 
-    public static Context getInstanceContext(){
+    public static Context getInstanceContext() {
 
         return mInstance.getApplicationContext();
 

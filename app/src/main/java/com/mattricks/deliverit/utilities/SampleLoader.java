@@ -12,7 +12,6 @@ import java.util.List;
  * Created by mahasagar on 10/1/17.
  */
 public class SampleLoader extends AsyncTaskLoader<List<Product>> {
-    // We hold a reference to the Loader’s data here.
     private List<Product> mData;
 
     public SampleLoader(Context ctx) {

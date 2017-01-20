@@ -54,11 +54,13 @@ public class TabFragmentCart extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     private CartAdapter mAdapter;
     private List<Cart> cartList = new ArrayList<>();
-    String UserName = null,UserId = null;
+    String UserName = null, UserId = null;
     private String UserMobile;
-    public TabFragmentCart(){
+
+    public TabFragmentCart() {
         sharedPreference = new SharedPreference();
     }
+
     public static TabFragmentCart newInstance(String text, BottomBar bottomBar) {
         TabFragmentCart sampleFragment = new TabFragmentCart();
         sampleFragment.bottomBar = bottomBar;
@@ -66,10 +68,9 @@ public class TabFragmentCart extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.tabfragmentcart, container, false);
+        View rootView = inflater.inflate(R.layout.tabfragmentcart, container, false);
         requestQueue = VolleySingleton.getInstance().getREquestQueue();
 
         ButterKnife.bind(this, rootView);
@@ -83,31 +84,24 @@ public class TabFragmentCart extends Fragment {
 
             UserMobile = sharedPreference.getUrderMobileNumber(getActivity());
 
-            Log.d("UserId b #: ", UserId);
-            Log.d("UserName b #: ", UserName);
-        } catch (Exception e) {
+          } catch (Exception e) {
             e.printStackTrace();
-            Log.e("$$$$$$$$ b #: ", e.toString());
-        }
+         }
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
+        mAdapter = new CartAdapter(cartList, getActivity(), UserId, UserName, UserMobile, TabFragmentCart.this);
         getCartDetails(rootView);
         return rootView;
     }
 
 
-
     public void getCartDetails(final View view) {
 
-        mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
+        mAdapter = new CartAdapter(cartList, getActivity(), UserId, UserName, UserMobile, TabFragmentCart.this);
         final String URL = Constants.APP_URL + Constants.URL_GETCARTDETAILS;
-        Log.d("URL #: ", URL);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Response #: ", response);
-
                         cartList.clear();
                         try {
                             JSONObject JsonResult = new JSONObject(response);
@@ -123,10 +117,10 @@ public class TabFragmentCart extends Fragment {
                                 // object.getString("items");
                                 JSONArray json_items_products = new JSONArray(object.getString("items"));
                                 ArrayList<CartProduct> cartProductList = new ArrayList<>();
-                                for(int j = 0 ; j< json_items_products.length();j++ ){
+                                for (int j = 0; j < json_items_products.length(); j++) {
                                     JSONObject objectOneProduct = json_items_products.getJSONObject(j);
                                     CartProduct newItem = new CartProduct();
-                                    Log.d("@@@@ newItem @@@ : ", objectOneProduct.getString("name"));
+
                                     newItem.setName(objectOneProduct.getString("name"));
                                     newItem.setBrand(objectOneProduct.getString("brand"));
                                     newItem.setForm(objectOneProduct.getString("form"));
@@ -141,17 +135,15 @@ public class TabFragmentCart extends Fragment {
                                     newItem.setTotalPricePerProduct(objectOneProduct.getString("total"));
                                     cartProductList.add(newItem);
                                 }
-                                cart.Items =cartProductList;
+                                cart.Items = cartProductList;
                                 cartList.add(cart);
-                                Log.d("object #: ", cartProductList.size()+"");
 
                             }
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
                         }
                         try {
-                            Log.d("productList after #: ", "" + cartList.size());
-                            mAdapter = new CartAdapter(cartList,getActivity(),UserId,UserName,UserMobile,TabFragmentCart.this);
+                            mAdapter = new CartAdapter(cartList, getActivity(), UserId, UserName, UserMobile, TabFragmentCart.this);
                             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
                             recyclerViewCart.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -167,8 +159,7 @@ public class TabFragmentCart extends Fragment {
                             recyclerViewCart.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
-                            Log.d("productList #: ", "" + cartList.size());
-                        } catch (NullPointerException e) {
+                         } catch (NullPointerException e) {
 
                         }
                     }
@@ -183,20 +174,21 @@ public class TabFragmentCart extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("businessId",UserId);
+                params.put("businessId", UserId);
                 return params;
             }
         };
         requestQueue.add(postRequest);
     }
+
     private void restoreRecycleView() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         try {
             recyclerViewCart.setLayoutManager(mLayoutManager);
             recyclerViewCart.setItemAnimator(new DefaultItemAnimator());
-           RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-           itemAnimator.setAddDuration(1000);
-           itemAnimator.setRemoveDuration(1000);
+            RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+            itemAnimator.setAddDuration(1000);
+            itemAnimator.setRemoveDuration(1000);
             recyclerViewCart.setItemAnimator(itemAnimator);
         } catch (NullPointerException e) {
 
