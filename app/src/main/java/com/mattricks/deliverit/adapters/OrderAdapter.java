@@ -22,7 +22,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private final Activity thisActivity;
     private List<Order> orderList;
     TabFragmentOrders orderFrag;
-    String UserId = "",strOrderTotal="",strOrderStatus="",strOrderId ="";
+    String UserId = "", strOrderTotal = "", strOrderStatus = "", strOrderId = "";
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView itemDistributorName, itemOrderId, itemOrderTotal, itemOrderDate, itemOrderStatus;
@@ -42,9 +42,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         this.thisActivity = activity;
         this.UserId = UserId;
         this.orderFrag = orderFrag;
-        strOrderTotal =thisActivity.getResources().getString(R.string.strOrderTotal);
-        strOrderStatus =thisActivity.getResources().getString(R.string.strOrderStatus);
-        strOrderId =thisActivity.getResources().getString(R.string.strOrderId);
+        strOrderTotal = thisActivity.getResources().getString(R.string.strOrderTotal);
+        strOrderStatus = thisActivity.getResources().getString(R.string.strOrderStatus);
+        strOrderId = thisActivity.getResources().getString(R.string.strOrderId);
     }
 
     View v;
@@ -66,9 +66,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.itemOrderTotal.setText(total);
         String formattedDate = FormattedDate(order.getOrderDate());
         holder.itemOrderDate.setText(formattedDate);
-        String status =  strOrderStatus+ order.getStatus();
+        String status = strOrderStatus + order.getStatus();
         holder.itemOrderStatus.setText(status);
-        String orderId = strOrderId+ order.getOrderId();
+        String orderId = strOrderId + order.getOrderId();
         holder.itemOrderId.setText(orderId);
 
     }

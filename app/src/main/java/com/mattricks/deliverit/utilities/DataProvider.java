@@ -53,6 +53,7 @@ public class DataProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
+        Log.d("here @@", uri.toString());
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(TABLE_NAME);
 
@@ -67,10 +68,10 @@ public class DataProvider extends ContentProvider {
             sortOrder = name;
         }
 
-            Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-                    null, sortOrder);
+        Cursor c = qb.query(db, projection, selection, selectionArgs, null,
+                null, sortOrder);
 
-            c.setNotificationUri(getContext().getContentResolver(), uri);
+        c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
 
@@ -91,7 +92,7 @@ public class DataProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         long rowID = db.insert(TABLE_NAME, "", values);
-        Log.d("DB",values.toString());
+        Log.d("DB", values.toString());
         if (rowID > 0) {
             Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
             getContext().getContentResolver().notifyChange(_uri, null);
@@ -135,7 +136,7 @@ public class DataProvider extends ContentProvider {
     static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
             + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " name TEXT NOT NULL," +
-             productId + " TEXT NOT NULL," +
+            productId + " TEXT NOT NULL," +
             distributorName + " TEXT NOT NULL," +
             distributorPrice + " TEXT NOT NULL" + ");";
 

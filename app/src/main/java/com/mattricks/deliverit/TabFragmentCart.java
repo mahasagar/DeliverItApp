@@ -45,8 +45,10 @@ public class TabFragmentCart extends Fragment {
     BottomBar bottomBar;
     RequestQueue requestQueue;
     SharedPreference sharedPreference;
-    @Bind(R.id.recycler_view_cart) RecyclerView recyclerViewCart;
-    @Bind(R.id.listEmptyMsg) CardView listEmptyMsg;
+    @Bind(R.id.recycler_view_cart)
+    RecyclerView recyclerViewCart;
+    @Bind(R.id.listEmptyMsg)
+    CardView listEmptyMsg;
 
     RecyclerView.LayoutManager mLayoutManager;
     private CartAdapter mAdapter;
@@ -81,9 +83,9 @@ public class TabFragmentCart extends Fragment {
 
             UserMobile = sharedPreference.getUserMobileNumber(getActivity());
 
-          } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-         }
+        }
 
         mAdapter = new CartAdapter(cartList, getActivity(), UserId, UserName, UserMobile, TabFragmentCart.this);
         getCartDetails(rootView);
@@ -140,10 +142,10 @@ public class TabFragmentCart extends Fragment {
                             Log.d("e #: ", e.getMessage());
                         }
                         try {
-                            if(cartList.isEmpty()){
+                            if (cartList.isEmpty()) {
                                 recyclerViewCart.setVisibility(View.GONE);
                                 listEmptyMsg.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 recyclerViewCart.setVisibility(View.VISIBLE);
                                 listEmptyMsg.setVisibility(View.GONE);
                             }
@@ -163,8 +165,8 @@ public class TabFragmentCart extends Fragment {
                             recyclerViewCart.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
-                         } catch (NullPointerException e) {
-                            Log.e("TagFramgmentCart",e.toString());
+                        } catch (NullPointerException e) {
+                            Log.e("TagFramgmentCart", e.toString());
                         }
                     }
                 },
@@ -195,7 +197,7 @@ public class TabFragmentCart extends Fragment {
             itemAnimator.setRemoveDuration(1000);
             recyclerViewCart.setItemAnimator(itemAnimator);
         } catch (NullPointerException e) {
-            Log.e("TagFramgmentCart",e.toString());
+            Log.e("TagFramgmentCart", e.toString());
         }
     }
 

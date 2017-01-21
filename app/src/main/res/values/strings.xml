@@ -52,6 +52,7 @@
     <string name="strLocationLat">Lat</string>
     <string name="strLocationLong">Long</string>
     <string name="strProductPrice">Product Price</string>
+    <string name="empty_string">Empty List</string>
 
 
 </resources>

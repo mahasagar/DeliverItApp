@@ -99,7 +99,7 @@ public class TabFragmentProducts extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         //User = sharedPreference.getUser(rootView.getContext());
 
-        mAdapter = new ProductAdapter(productList,getActivity());
+        mAdapter = new ProductAdapter(productList, getActivity());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), recyclerView, new ClickListener() {
@@ -214,9 +214,9 @@ public class TabFragmentProducts extends Fragment {
                                         distributorArrayList.add(distributor);
 
                                     } catch (NullPointerException e) {
-                                        Log.e("TagFragmentProduct",e.toString());
+                                        Log.e("TagFragmentProduct", e.toString());
                                     }
-                                 }
+                                }
                             }
                         } catch (Exception e) {
                             Log.d("e #: ", e.getMessage());
@@ -286,7 +286,7 @@ public class TabFragmentProducts extends Fragment {
 
             @Override
             public void onAdLeftApplication() {
-              //  Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -412,7 +412,7 @@ public class TabFragmentProducts extends Fragment {
     private void getProducts(final View view) {
         final String URL = Constants.APP_URL + Constants.API_PRODUCTS;
 
-        mAdapter = new ProductAdapter(productList,getActivity());
+        mAdapter = new ProductAdapter(productList, getActivity());
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -439,23 +439,23 @@ public class TabFragmentProducts extends Fragment {
                                 productList.add(product);
                             }
                         } catch (Exception e) {
-                            Log.e("TagFragmentProduct",e.toString());
+                            Log.e("TagFragmentProduct", e.toString());
                         }
 
                         try {
-                            mAdapter = new ProductAdapter(productList,getActivity());
+                            mAdapter = new ProductAdapter(productList, getActivity());
                             recyclerView.setAdapter(mAdapter);
                             restoreRecycleView();
                             mAdapter.notifyDataSetChanged();
-                            if(productList.isEmpty()){
+                            if (productList.isEmpty()) {
                                 recyclerView.setVisibility(View.GONE);
                                 listEmptyMsg.setVisibility(View.VISIBLE);
-                            }else {
-                                    recyclerView.setVisibility(View.VISIBLE);
-                                   listEmptyMsg.setVisibility(View.GONE);
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                listEmptyMsg.setVisibility(View.GONE);
                             }
                         } catch (NullPointerException e) {
-                            Log.e("TagFragmentProduct",e.toString());
+                            Log.e("TagFragmentProduct", e.toString());
                         }
                     }
                 },
@@ -485,7 +485,7 @@ public class TabFragmentProducts extends Fragment {
 //           itemAnimator.setRemoveDuration(1000);
 //           recyclerView.setItemAnimator(itemAnimator);
         } catch (NullPointerException e) {
-            Log.e("TagFragmentProduct",e.toString());
+            Log.e("TagFragmentProduct", e.toString());
         }
     }
 
@@ -538,8 +538,6 @@ public class TabFragmentProducts extends Fragment {
 
         }
     }
-
-
 
 
 }

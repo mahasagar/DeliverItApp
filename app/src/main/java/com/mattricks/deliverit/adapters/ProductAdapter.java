@@ -33,7 +33,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
 
-    public ProductAdapter(List<Product> productList,Activity activity) {
+    public ProductAdapter(List<Product> productList, Activity activity) {
 
         this.productList = productList;
         strMrp = activity.getResources().getString(R.string.strMrp);

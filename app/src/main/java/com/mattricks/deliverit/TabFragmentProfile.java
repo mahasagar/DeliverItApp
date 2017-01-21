@@ -56,7 +56,8 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
     @Bind(R.id.btnLogout)
     Button btnLogout;
-    public TabFragmentProfile(){
+
+    public TabFragmentProfile() {
 
         sharedPreference = new SharedPreference();
     }
@@ -90,17 +91,17 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
             @Override
             public void onAdClosed() {
-              //  Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity(), "Ad is closed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-              //  Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdLeftApplication() {
-             //   Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getActivity(), "Ad left application!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -124,8 +125,8 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
                     Intent i = new Intent(getActivity(), LoginActivity.class);
                     startActivity(i);
                     getActivity().finish();
-                }catch(NullPointerException e){
-                    Log.e("TagFragmentProfile",e.toString());
+                } catch (NullPointerException e) {
+                    Log.e("TagFragmentProfile", e.toString());
                 }
 
             }
@@ -278,7 +279,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
             latitude.setText(String.format("%s %s", getString(R.string.latitude_string), getFusedLatitude()));
             longitude.setText(String.format("%s %s", getString(R.string.longitude_string), getFusedLongitude()));
         } catch (NullPointerException e) {
-            Log.e("TagFragmentProfile",e.toString());
+            Log.e("TagFragmentProfile", e.toString());
         }
 
     }

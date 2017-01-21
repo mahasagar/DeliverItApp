@@ -24,8 +24,7 @@
         card_view:cardBackgroundColor="@color/colorPrimary"
         card_view:cardCornerRadius="6dp"
         card_view:cardPreventCornerOverlap="false"
-        card_view:cardElevation="2dp"
-        android:layout_weight="0.17">
+        card_view:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +33,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:weightSum="1"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,16 +46,14 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/strProfileImgDesc"
                     android:src="@drawable/ic_account_circle_black_24dp"
-                    android:id="@+id/imageView4"
-                    android:layout_weight="0.15" />
+                    android:id="@+id/imageView4" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/userDetails"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:id="@+id/txt_username"
-                    android:layout_weight="0.04" />
+                    android:id="@+id/txt_username" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -46,7 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     String UserId = "", UserName = "", UserMobile = "";
     ArrayList<CartProduct> cartProductList = new ArrayList<>();
     SampleLoader samploader;
-    Cursor cursor=null;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView distributorName, totalPrice;
         public RecyclerView recyclerview_cart_items;
@@ -83,34 +83,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cart_item, parent, false);
         v = itemView;
-        cursor = thisActivity.getContentResolver()
-                .query(DataProvider.CONTENT_URI, null, null, null, null);
-        Log.d("cursor #$$$$ ", cursor.toString());
-
-        StringBuilder res=new StringBuilder();
-        String sone="";
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-            int irow1 = cursor.getColumnIndex("id");
-            int irow2 = cursor.getColumnIndex("name");
-            int irow3 = cursor.getColumnIndex(DataProvider.productId);
-            int irow4 = cursor.getColumnIndex(DataProvider.distributorName);
-            int irow5 = cursor.getColumnIndex(DataProvider.distributorPrice);
-            sone = sone + cursor.getString(irow1) + "  " + cursor.getString(irow2)+
-                    "  " + cursor.getString(irow3)
-                    +"  " + cursor.getString(irow4)
-                    +"  " + cursor.getString(irow5)
-                    + "\n";
-
-        }
-
-        Log.d("sone@@@ : ",sone);
-
-        try {
-            cursor.close();
-        }catch(NullPointerException e){
-            Log.e("Cursor",e.toString());
-        }
         return new MyViewHolder(itemView);
     }
 
@@ -132,7 +104,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             public void onClick(View view) {
 
                 placeOrder(UserId, cart.getDistributorId(), "PlaceOrder", cart.getDistributorName(), cartProductList);
-                // Toast.makeText(thisActivity,"welcome : "+holder.distributorName.getText(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -231,9 +202,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             values.put(DataProvider.productId, cartProduct.getProductId());
             values.put(DataProvider.distributorName, cartProduct.getDistributorName());
             values.put(DataProvider.distributorPrice, cartProduct.getDistributorPrice());
-            Log.d("DB1@@@@@@@@ ", cartProduct.getName());
             Uri url = thisActivity.getContentResolver().insert(DataProvider.CONTENT_URI, values);
-            Log.d("url ######## ", url.toString());
         }
     }
 

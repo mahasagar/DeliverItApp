@@ -23,13 +23,26 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <ListView
-            android:id="@+id/widget_list"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            tools:listitem="@layout/widget_layout_item"/>
+            android:orientation="vertical"
+            android:background="@android:color/black" >
+            <ListView
+                android:id="@+id/listViewWidget"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/empty_string"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

@@ -122,10 +122,10 @@ public class TabFragmentOrders extends Fragment {
                             Log.d("e #: ", e.getMessage());
                         }
                         try {
-                            if(orderList.isEmpty()){
+                            if (orderList.isEmpty()) {
                                 recyclerViewOrder.setVisibility(View.GONE);
                                 listEmptyMsg.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 recyclerViewOrder.setVisibility(View.VISIBLE);
                                 listEmptyMsg.setVisibility(View.GONE);
                             }
@@ -145,7 +145,7 @@ public class TabFragmentOrders extends Fragment {
                             recyclerViewOrder.setAdapter(mAdapter);
                             mAdapter.notifyDataSetChanged();
                         } catch (NullPointerException e) {
-                            Log.e("TagFramgmentOrder",e.toString());
+                            Log.e("TagFramgmentOrder", e.toString());
                         }
                     }
                 },

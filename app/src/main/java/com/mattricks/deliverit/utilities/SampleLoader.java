@@ -21,9 +21,10 @@ public class SampleLoader extends AsyncTaskLoader<List<Product>> implements Load
     private List<Product> mData;
     Context cont;
     CursorLoader cursorLoader;
+
     public SampleLoader(Context ctx) {
         super(ctx);
-        this.cont =ctx;
+        this.cont = ctx;
     }
 
     @Override
@@ -68,21 +69,19 @@ public class SampleLoader extends AsyncTaskLoader<List<Product>> implements Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        cursorLoader= new CursorLoader(cont, Uri.parse(DataProvider.CONTENT_URI.toString()), null, null, null, null);
+        cursorLoader = new CursorLoader(cont, Uri.parse(DataProvider.CONTENT_URI.toString()), null, null, null, null);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         cursor.moveToFirst();
-        StringBuilder res=new StringBuilder();
+        StringBuilder res = new StringBuilder();
         while (!cursor.isAfterLast()) {
-            res.append("\n"+cursor.getString(cursor.getColumnIndex("id"))+ "-"+ cursor.getString(cursor.getColumnIndex("name")));
+            res.append("\n" + cursor.getString(cursor.getColumnIndex("id")) + "-" + cursor.getString(cursor.getColumnIndex("name")));
             cursor.moveToNext();
         }
     }
-
-
 
 
     @Override

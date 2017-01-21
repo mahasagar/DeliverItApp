@@ -58,6 +58,9 @@
             android:exported="true"
             android:multiprocess="true" >
         </provider>
+        <service
+            android:name="com.mattricks.deliverit.widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
