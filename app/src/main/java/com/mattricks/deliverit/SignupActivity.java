@@ -29,13 +29,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by mahasagar on 29/12/16.
- */
-
 public class SignupActivity extends AppCompatActivity {
 
-
+    public static String TAG="SignupActivity";
     @Bind(R.id.et_name)
     EditText et_name;
     @Bind(R.id.et_address)
@@ -83,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage(getResources().getString(R.string.strProgressBar));
         progressDialog.show();
 
         final String name = et_name.getText().toString();
@@ -103,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), getResources().getString(R.string.strSignUpFailed), Toast.LENGTH_LONG).show();
         btnSignup.setEnabled(true);
     }
 
@@ -118,14 +114,14 @@ public class SignupActivity extends AppCompatActivity {
         String reEnterPassword = et_reEnterPassword.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            et_name.setError("at least 3 characters");
+            et_name.setError(getResources().getString(R.string.strNameLimitMsg));
             valid = false;
         } else {
             et_name.setError(null);
         }
 
         if (address.isEmpty()) {
-            et_address.setError("Enter Valid Address");
+            et_address.setError(getResources().getString(R.string.strEnterValidAddress));
             valid = false;
         } else {
             et_address.setError(null);
@@ -133,28 +129,28 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            et_email.setError("enter a valid email address");
+            et_email.setError(getResources().getString(R.string.strValidEmail));
             valid = false;
         } else {
             et_email.setError(null);
         }
 
         if (mobile.isEmpty() || mobile.length() != 10) {
-            et_mobile.setError("Enter Valid Mobile Number");
+            et_mobile.setError(getResources().getString(R.string.strEnterValidMobileNumber));
             valid = false;
         } else {
             et_mobile.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            et_password.setError("between 4 and 10 alphanumeric characters");
+            et_password.setError(getResources().getString(R.string.strPasswordLimit));
             valid = false;
         } else {
             et_password.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            et_reEnterPassword.setError("Password Do not match");
+            et_reEnterPassword.setError(getResources().getString(R.string.strPasswordMsg));
             valid = false;
         } else {
             et_reEnterPassword.setError(null);
@@ -185,14 +181,14 @@ public class SignupActivity extends AppCompatActivity {
                                 Toast.makeText(view.getContext(), result, Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception e) {
-                            Log.d("e #: ", e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response #", error.getMessage());
+                        Log.d(TAG, error.getMessage());
                     }
                 }
         ) {

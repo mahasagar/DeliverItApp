@@ -53,6 +53,18 @@
     <string name="strLocationLong">Long</string>
     <string name="strProductPrice">Product Price</string>
     <string name="empty_string">Empty List</string>
+    <string name="strProgressBar">Creating Account...</string>
+    <string name="strSignUpFailed">Signup failed</string>
+    <string name="strNameLimitMsg">at least 3 characters</string>
+    <string name="strEnterValidAddress">Enter Valid Address</string>
+    <string name="strValidEmail">enter a valid email address</string>
+    <string name="strEnterValidMobileNumber">Enter Valid Mobile Number</string>
+    <string name="strPasswordLimit">between 4 and 10 alphanumeric characters</string>
+    <string name="strPasswordMsg">Password Do not match</string>
+    <string name="strGoogleAPIMsg">This device is supported. Please download google play services</string>
+    <string name="strDevicesNotSupport">This device is not supported</string>
+    <string name="strTestDevices">C04B1BFFB0774708339BC273F8A43708</string>
+    <string name="strTabProfile">TabFragmentProfile</string>
 
 
 </resources>

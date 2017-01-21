@@ -43,10 +43,8 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     private AdView mAdView;
     String User;
     private GoogleApiClient mGoogleApiClient;
-
     private LocationRequest mLocationRequest;
     private TextView latitude, longitude;
-
     private double fusedLatitude = 0.0;
     private double fusedLongitude = 0.0;
 
@@ -62,11 +60,9 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
     public static TabFragmentProfile newInstance(String text, BottomBar bottomBar) {
         Bundle args = new Bundle();
-
         TabFragmentProfile sampleFragment = new TabFragmentProfile();
         sampleFragment.bottomBar = bottomBar;
         sampleFragment.setArguments(args);
-
         return sampleFragment;
     }
 
@@ -79,14 +75,13 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
         try {
             User = sharedPreference.getUserName(getActivity());
         }catch(JSONException e){
-            Log.e("User",e.toString());
+            Log.e(getResources().getString(R.string.strTabProfile),e.toString());
         }
 
         txt_username.setText(User);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                // Check the LogCat to get your test device ID
-                .addTestDevice("C04B1BFFB0774708339BC273F8A43708")
+                .addTestDevice(getResources().getString(R.string.strTestDevices))
                 .build();
 
         mAdView.setAdListener(new AdListener() {
@@ -125,7 +120,6 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 try {
-                    String User = sharedPreference.getUser(v.getContext());
                     sharedPreference.removeUser(v.getContext());
                     Intent i = new Intent(getActivity(), LoginActivity.class);
                     startActivity(i);
@@ -172,14 +166,6 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-               /* if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-
-                    // permission denied, boo! Disable the functionality that depends on this permission.
-                }*/
-                return;
             }
         }
     }
@@ -201,11 +187,11 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 Toast.makeText(getContext().getApplicationContext(),
-                        "This device is supported. Please download google play services", Toast.LENGTH_LONG)
+                        getResources().getString(R.string.strGoogleAPIMsg), Toast.LENGTH_LONG)
                         .show();
             } else {
                 Toast.makeText(getContext().getApplicationContext(),
-                        "This device is not supported.", Toast.LENGTH_LONG)
+                        getResources().getString(R.string.strDevicesNotSupport), Toast.LENGTH_LONG)
                         .show();
                 getActivity().finish();
             }
@@ -223,7 +209,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     public void registerRequestUpdate(final LocationListener listener) {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(1000); // every second
+        mLocationRequest.setInterval(1000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -278,13 +264,10 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
         try {
             setFusedLatitude(location.getLatitude());
             setFusedLongitude(location.getLongitude());
-
-            Toast.makeText(getActivity().getApplicationContext(), "NEW LOCATION RECEIVED", Toast.LENGTH_LONG).show();
-
             latitude.setText(String.format("%s %s", getString(R.string.latitude_string), getFusedLatitude()));
             longitude.setText(String.format("%s %s", getString(R.string.longitude_string), getFusedLongitude()));
         } catch (NullPointerException e) {
-            Log.e("TagFragmentProfile", e.toString());
+            Log.e("", e.toString());
         }
 
     }
