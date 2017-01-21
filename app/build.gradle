@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'deliverIt'
             keyPassword 'mahasagar'
-            storeFile file('deliverIt.keystore')
+            storeFile file('deliverIt.jks')
             storePassword 'mahasagar'
         }
     }
