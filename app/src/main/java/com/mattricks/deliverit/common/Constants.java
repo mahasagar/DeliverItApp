@@ -1,8 +1,8 @@
 package com.mattricks.deliverit.common;
 
 public class Constants {
-    //public static final String APP_URL = "http://52.40.32.161:4000";
-    public static final String APP_URL = "http://192.168.1.7:4000";
+    public static final String APP_URL = "http://52.40.32.161:4000";
+    //public static final String APP_URL = "http://192.168.1.7:4000";
     public static final String API_LOGIN = "/api/getLogin";
     public static final String API_SIGNUP = "/api/registerUser";
     //public static final String API_PRODUCTS = "/api/getAllProducts";

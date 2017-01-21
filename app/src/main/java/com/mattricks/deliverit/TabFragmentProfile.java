@@ -30,6 +30,8 @@ import com.google.android.gms.location.LocationServices;
 import com.mattricks.deliverit.utilities.SharedPreference;
 import com.roughike.bottombar.BottomBar;
 
+import org.json.JSONException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -44,6 +46,7 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
     BottomBar bottomBar;
     SharedPreference sharedPreference;
     private AdView mAdView;
+    String User;
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -56,6 +59,8 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
 
     @Bind(R.id.btnLogout)
     Button btnLogout;
+    @Bind(R.id.txt_username)
+    TextView txt_username;
 
     public TabFragmentProfile() {
 
@@ -78,6 +83,13 @@ public class TabFragmentProfile extends Fragment implements LocationListener {
         ButterKnife.bind(this, rootView);
         initializeViews(rootView);
         mAdView = (AdView) rootView.findViewById(R.id.adView);
+        try {
+            User = sharedPreference.getUserName(getActivity());
+        }catch(JSONException e){
+            Log.e("User",e.toString());
+        }
+
+        txt_username.setText(User);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 // Check the LogCat to get your test device ID
