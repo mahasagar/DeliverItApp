@@ -35,20 +35,13 @@ import org.json.JSONException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by mahasagar on 12/11/16.
- */
 public class TabFragmentProfile extends Fragment implements LocationListener {
 
-    private static final String STARTING_TEXT = "Four Buttons Bottom Navigation";
     public final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
-    private ViewPager mViewPager;
     BottomBar bottomBar;
     SharedPreference sharedPreference;
     private AdView mAdView;
     String User;
-
-
     private GoogleApiClient mGoogleApiClient;
 
     private LocationRequest mLocationRequest;
