@@ -18,4 +18,7 @@ public class CommonService {
         return list.size() <= 0;
     }
 
+    public void attachUI(){
+
+    }
 }
